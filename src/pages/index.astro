@@ -2,12 +2,14 @@
 import BaseHead from '../components/BaseHead.astro';
 // import Header from '../components/Header.astro';
 import Header from '../components/Header.tsx';
-import SteuernChart from '../components/SteuernChart.tsx';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import taxdata from '../data/taxdata.json';
+import SliderChartWrapper from '../components/SliderChartWrapper.tsx';
 
 const pathname = Astro.url.pathname.replace(import.meta.env.BASE_URL, '');
 const subpath = pathname.match(/[^\/]+/g);
----
+
+--- 
 
 <!doctype html>
 <html lang="en">
@@ -21,7 +23,7 @@ const subpath = pathname.match(/[^\/]+/g);
 				<Header client:load pathname={pathname} subpath={subpath} />
 			</section>
             <section>
-                <SteuernChart client:load />
+                <SliderChartWrapper client:load/>
             </section>
 		</main>
 	</body>
