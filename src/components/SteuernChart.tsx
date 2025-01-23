@@ -1,5 +1,5 @@
 import React from "react";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Cell } from "recharts";
 
 function isNumberString(value: string): boolean {
     return !isNaN(Number(value));
@@ -18,11 +18,13 @@ interface TaxGroup {
 
 interface TaxData {
     taxgroups: TaxGroup[];
+    colors: { [key: string]: string };
 }
 
 interface RechartsData {
     name: string;
     value: number;
+    color: string;
 }
 
 function UserIncomeIsInGroup(userincome: number, taxgroup: number): boolean {
@@ -41,7 +43,7 @@ const Chart = (props: { data: TaxData; userinput: { income: number; children: bo
         ) {
             for (const [key, value] of Object.entries(taxgroup)) {
                 if (key !== "type") {
-                    data.push({ name: key, value: value[1] * props.userinput.income });
+                    data.push({ name: key, value: value[0] * props.userinput.income, color: props.data.colors[key] });
                 }
             }
             found = true;
@@ -56,7 +58,11 @@ const Chart = (props: { data: TaxData; userinput: { income: number; children: bo
                 <YAxis />
                 <Tooltip />
                 <Legend />
-                <Bar dataKey="value" fill="#8884d8" />
+                <Bar isAnimationActive={false} dataKey="value">
+                    {data.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={entry.color} />
+                    ))}
+                </Bar>
             </BarChart>
         </ResponsiveContainer>
     );
