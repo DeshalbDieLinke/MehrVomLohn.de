@@ -31,7 +31,7 @@ function UserIncomeIsInGroup(userincome: number, taxgroup: number): boolean {
     return userincome <= taxgroup;
 }
 
-const Chart = (props: { data: TaxData; userinput: { income: number; children: boolean } }) => {
+const Chart = (props: { output: (value: string) => void; data: TaxData; userinput: { income: number; children: boolean } }) => {
     let data: RechartsData[] = [];
     let found = false;
     props.data.taxgroups.forEach((taxgroup) => {
@@ -43,12 +43,25 @@ const Chart = (props: { data: TaxData; userinput: { income: number; children: bo
         ) {
             for (const [key, value] of Object.entries(taxgroup)) {
                 if (key !== "type") {
-                    data.push({ name: key, value: value[0] * props.userinput.income, color: props.data.colors[key] });
+                    data.push({ name: key, value: value[0] * (props.userinput.income / 100), color: props.data.colors[key] });
                 }
             }
             found = true;
         }
     });
+
+    data.forEach((entry) => {
+        entry.value = Math.round(entry.value);
+    });
+
+    // find the heigest value
+    let max = { v: 0, p: "" };
+    data.forEach((entry) => {
+        if (entry.value > max.v) {
+            max = { v: entry.value, p: entry.name };
+        }
+    });
+    props.output(max.p);
 
     return (
         <ResponsiveContainer width="100%" height={400}>
