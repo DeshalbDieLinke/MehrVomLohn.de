@@ -21,9 +21,13 @@ export interface TaxData {
     colors: { [key: string]: string };
 }
 
-function GetRecomendations(data: RechartsData[]): { party: string; status: Status; entlastung: number } {
+function GetRecomendations(data: RechartsData[]): { party: string; status: Status; entlastung_linke: number } {
     let max = { v: 0, p: "" };
+    let dielinke_entlastung = 0;
     data.forEach((entry: RechartsData) => {
+        if (entry.name == "linke") {
+            dielinke_entlastung = entry.value;
+        }
         if (entry.value > max.v) {
             max = { v: entry.value, p: entry.name };
         }
@@ -31,19 +35,19 @@ function GetRecomendations(data: RechartsData[]): { party: string; status: Statu
     let status = Status.andere;
     if (max.p == "linke") {
         status = Status.linke;
-        if (max.v < 0) {
-            status = Status.linkenegativ;
-        }
     }
-    return { party: max.p, status: status, entlastung: max.v };
+    if (dielinke_entlastung < 0) {
+        status = Status.linkenegativ;
+    }
+    return { party: max.p, status: status, entlastung_linke: dielinke_entlastung };
 }
 
 export default function SliderChartWrapper() {
     let [userdata, setUserdata] = useState({ income: 25000, children: false });
 
     let data = CalcGraphData(taxdata.taxgroups, taxdata.colors, userdata);
-
     let recom = GetRecomendations(data);
+    console.log(recom);
 
     return (
         <>
