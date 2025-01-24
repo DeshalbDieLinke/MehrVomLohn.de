@@ -5,6 +5,7 @@ import Header from '../components/Header.tsx';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 import taxdata from '../data/taxdata.json';
 import SliderChartWrapper from '../components/SliderChartWrapper.tsx';
+import Footer from '../components/Footer.tsx';
 
 const pathname = Astro.url.pathname.replace(import.meta.env.BASE_URL, '');
 const subpath = pathname.match(/[^\/]+/g);
@@ -24,6 +25,7 @@ const subpath = pathname.match(/[^\/]+/g);
 			</section>
             <section>
                 <SliderChartWrapper client:load/>
+                <Footer />
             </section>
 		</main>
 	</body>

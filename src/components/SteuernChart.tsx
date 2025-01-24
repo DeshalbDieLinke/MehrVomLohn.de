@@ -1,5 +1,6 @@
 import React from "react";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Cell } from "recharts";
+import { Status } from "./CallToActionWrapper.tsx";
 
 function isNumberString(value: string): boolean {
     return !isNaN(Number(value));
@@ -31,7 +32,11 @@ function UserIncomeIsInGroup(userincome: number, taxgroup: number): boolean {
     return userincome <= taxgroup;
 }
 
-const Chart = (props: { output: (value: string) => void; data: TaxData; userinput: { income: number; children: boolean } }) => {
+const SteuernChart = (props: {
+    setValue: (value: { party: string; status: Status; entlastung: number }) => void;
+    data: TaxData;
+    userinput: { income: number; children: boolean };
+}) => {
     let data: RechartsData[] = [];
     let found = false;
     props.data.taxgroups.forEach((taxgroup) => {
@@ -61,10 +66,18 @@ const Chart = (props: { output: (value: string) => void; data: TaxData; userinpu
             max = { v: entry.value, p: entry.name };
         }
     });
-    props.output(max.p);
+    let status = Status.andere;
+    if (max.p == "linke") {
+        status = Status.linke;
+        if (max.v < 0) {
+            status = Status.linkenegativ;
+        }
+    }
+    props.setValue({ party: max.p, status: status, entlastung: max.v });
+    console.log("here");
 
     return (
-        <ResponsiveContainer width="100%" height={400}>
+        <ResponsiveContainer width="100%" height={600}>
             <BarChart data={data}>
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="name" />
@@ -81,4 +94,4 @@ const Chart = (props: { output: (value: string) => void; data: TaxData; userinpu
     );
 };
 
-export default Chart;
+export default SteuernChart;
