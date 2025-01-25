@@ -1,4 +1,4 @@
-import Slider from "../components/Slider.tsx";
+import Input from "../components/Input.tsx";
 import SteuernChart from "../components/SteuernChart.tsx";
 import type { RechartsData } from "../components/SteuernChart.tsx";
 import { useState } from "react";
@@ -51,7 +51,7 @@ export default function SliderChartWrapper() {
 
     return (
         <>
-            <Slider value={userdata} setValue={setUserdata} />
+            <Input value={userdata} setValue={setUserdata} />
             <SteuernChart data={data} />
             <CallToActionWrapper output={recom} />
         </>

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import type { ChangeEvent } from "react";
 
-export default function Slider(props: {
+export default function Input(props: {
     value: { income: number; children: boolean };
     setValue: (value: { income: number; children: boolean }) => void;
 }) {
@@ -12,7 +12,7 @@ export default function Slider(props: {
     return (
         <>
             <h1>Wie viel verdienst du?</h1>
-            <p>{props.value.income} €</p>
+            <input type="number" value={props.value.income} onChange={handleChange} />
             <input type="range" min={0} max={180000} className="range" value={props.value.income} onChange={handleChange} />
         </>
     );
