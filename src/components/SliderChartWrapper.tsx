@@ -1,4 +1,4 @@
-import Input from "../components/Input.tsx";
+import InputComponent from "../components/Input.tsx";
 import SteuernChart from "../components/SteuernChart.tsx";
 import type { RechartsData } from "../components/SteuernChart.tsx";
 import { useState } from "react";
@@ -51,9 +51,11 @@ export default function SliderChartWrapper() {
 
     return (
         <>
-            <Input value={userdata} setValue={setUserdata} />
+            <InputComponent value={userdata} setValue={setUserdata} />
             <SteuernChart data={data} />
-            <CallToActionWrapper output={recom} />
+            <div className="sd:p-8 p-4">
+                <CallToActionWrapper output={recom} />
+            </div>
         </>
     );
 }

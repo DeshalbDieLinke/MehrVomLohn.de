@@ -8,7 +8,7 @@ export function CallToActionWrapper(props: { output: { party: string; status: St
     if (props.output.status == Status.linke) {
         return (
             <>
-                <h1>Bestes Ergebnis – Die Linke:</h1>
+            <h1 className="text-4xl flex flex-row">Bestes Ergebnis – <div style={{color:'#ff0000'}}>Die Linke</div>:</h1>
 
                 <div className="p-6">
                     <p>

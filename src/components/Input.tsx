@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { Input } from "./ui/input.tsx";
 import type { ChangeEvent } from "react";
 
-export default function Input(props: {
+export default function InputComponent(props: {
     value: { income: number; children: boolean };
     setValue: (value: { income: number; children: boolean }) => void;
 }) {
@@ -11,9 +11,12 @@ export default function Input(props: {
 
     return (
         <>
-            <h1>Wie viel verdienst du?</h1>
-            <input type="number" value={props.value.income} onChange={handleChange} />
-            <input type="range" min={0} max={180000} className="range" value={props.value.income} onChange={handleChange} />
+            <div className="pt-8 px-8 flex flex-col gap-8 py-8">
+                <h1 className="text-3xl">Wie hoch ist dein Bruttoeinkommen im Jahr in Euro?</h1>
+                <p>Gib entweder deine Daten in Euro anonym ein oder nutze den Regler.</p>
+                <Input type="number" value={props.value.income} onChange={handleChange} />
+                <input type="range" min={0} max={130000} className="range" value={props.value.income} onChange={handleChange} />
+            </div>
         </>
     );
 }

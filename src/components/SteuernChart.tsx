@@ -1,5 +1,5 @@
 import React from "react";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Cell } from "recharts";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Cell, LabelList } from "recharts";
 
 export interface RechartsData {
     name: string;
@@ -18,8 +18,9 @@ const SteuernChart = (props: { data: RechartsData[] }) => {
                 <Legend />
                 <Bar isAnimationActive={false} dataKey="value">
                     {props.data.map((entry, index) => (
-                        <Cell key={`cell-${index}`} fill={entry.color} />
+                        <Cell key={`cell-${index}`} fill={entry.color}  />
                     ))}
+                    <LabelList dataKey="name" position="outside" />
                 </Bar>
             </BarChart>
         </ResponsiveContainer>

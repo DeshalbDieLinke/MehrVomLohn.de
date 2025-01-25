@@ -1,11 +1,18 @@
 ---
 import BaseHead from '../components/BaseHead.astro';
-// import Header from '../components/Header.astro';
 import Header from '../components/Header.tsx';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
-import taxdata from '../data/taxdata.json';
 import SliderChartWrapper from '../components/SliderChartWrapper.tsx';
+import Introdcution from '../components/Introduction.tsx';
 import Footer from '../components/Footer.tsx';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+  } from "../components/ui/card.tsx";
 
 const pathname = Astro.url.pathname.replace(import.meta.env.BASE_URL, '');
 const subpath = pathname.match(/[^\/]+/g);
@@ -22,17 +29,58 @@ const subpath = pathname.match(/[^\/]+/g);
 		<main>
 			<section class="introdcution">
 				<Header client:load pathname={pathname} subpath={subpath} />
-			</section>
-            <section>
+                <Introdcution />
+            </section>
+            <section id="MAIN">
                 <SliderChartWrapper client:load/>
-                <Footer />
+            </section>
+            <section>
+                <!-- <div class="flex flex-row justify-center"> -->
+                <!--     <div style="width: 500px;"> -->
+                <!--         <Card > -->
+                <!--           <CardHeader> -->
+                <!--             <CardTitle>Jetzt Mitglied werden</CardTitle> -->
+                <!--             <CardDescription>Card Description</CardDescription> -->
+                <!--           </CardHeader> -->
+                <!--           <CardContent> -->
+                <!--             <p>Card Content</p> -->
+                <!--           </CardContent> -->
+                <!--           <CardFooter> -->
+                <!--             <p>Card Footer</p> -->
+                <!--           </CardFooter> -->
+                <!--         </Card> -->
+                <!--     </div> -->
+                <!-- </div> -->
+                <div style="margin-top: 50px;">
+                    <Footer />
+                </div>
             </section>
 		</main>
 	</body>
 </html>
 
-<style> 
-	section {
-        padding: 1rem;
-	}
-</style> 
+<!-- <style>  -->
+<!--     main { -->
+<!-- 		height: 100vh; /*height: calc(100vh - 3.5rem); */ -->
+<!-- 		overflow-x: hidden; -->
+<!-- 		overflow-y: scroll; -->
+<!-- 		scroll-snap-type: y mandatory; -->
+<!-- 	} -->
+<!-- 	section { -->
+<!-- 		position: relative; -->
+<!-- 		height:  100%; -->
+<!-- 		scroll-snap-align: start; -->
+<!-- 	} -->
+<!--     @media (max-width: 1200px) { -->
+<!-- 		main { -->
+<!-- 			height: auto; -->
+<!-- 		} -->
+<!-- 		section { -->
+<!-- 			height: fit-content; -->
+<!-- 			scroll-snap-align: none; -->
+<!-- 		} -->
+<!-- 		.introdcution {; -->
+<!-- 			height: 100vh; -->
+<!-- 		} -->
+<!-- 	} -->
+<!-- </style>  -->
