@@ -8,13 +8,15 @@ export function CallToActionWrapper(props: { output: { party: string; status: St
     if (props.output.status == Status.linke) {
         return (
             <>
-            <h1 className="text-4xl flex flex-row">Bestes Ergebnis – <div style={{color:'#ff0000'}}>Die Linke</div>:</h1>
+                <h1 className="text-4xl flex flex-row">
+                    Bestes Ergebnis – <div style={{ color: "#ff0000" }}>Die Linke</div>:
+                </h1>
 
-                <div className="p-6">
+                <div className="p-6 bg-grey-background">
                     <p>
-                        Für dich springt am meisten heraus bei: Die Linke! <br />
-                        Mit der Linke kannst du bis zu {props.output.entlastung_linke}€ mehr im Jahr erhalten, weil das Steuerprogramm in
-                        diesem Bereich sehr starke Entlastungen vorsieht. So stark entlastet dich keine andere Partei!
+                        Für dich springt am meisten heraus bei: <b>Die Linke!</b> <br />
+                        Mit der Linke kannst du bis zu <b>{props.output.entlastung_linke}€ mehr im Jahr</b> erhalten, weil das
+                        Steuerprogramm in diesem Bereich sehr starke Entlastungen vorsieht. So stark entlastet dich keine andere Partei!
                     </p>
 
                     <p>
@@ -53,12 +55,14 @@ export function CallToActionWrapper(props: { output: { party: string; status: St
     if (props.output.status == Status.linkenegativ) {
         return (
             <>
-                <h1>Wir empfehlen dir: Die Linke.</h1>
+                <h1 className="text-4xl flex flex-row">
+                    Wir empfehlen dir: – <div style={{ color: "#ff0000" }}>Die Linke</div>:
+                </h1>
 
-                <div className="p-6">
+                <div className="p-6 bg-grey-background">
                     <p>
-                        Mit ihr hättest du zwar weniger auf dem Konto, aber leistest damit einen immensen Beitrag zur Gesellschaft. So
-                        trägst du zur Solidarität bei und finanzierst viele Projekte mit, von denen du und dein Umfeld auch profitieren
+                        <b>Mit ihr hättest du zwar weniger auf dem Konto, aber leistest damit einen immensen Beitrag zur Gesellschaft.</b>{" "}
+                        So trägst du zur Solidarität bei und finanzierst viele Projekte mit, von denen du und dein Umfeld auch profitieren
                         würden (*alle Quelle WP1):
                     </p>
                     <ul className="list-disc">
@@ -95,9 +99,11 @@ export function CallToActionWrapper(props: { output: { party: string; status: St
     if (props.output.status == Status.andere) {
         return (
             <>
-                <h1>Wir empfehlen dir: Die Linke!</h1>
+                <h1 className="text-4xl flex flex-row">
+                    Wir empfehlen dir: – <div style={{ color: "#ff0000" }}>Die Linke</div>:
+                </h1>
 
-                <div className="p-6">
+                <div className="p-6 bg-grey-background">
                     <p>
                         Mit ihr würdest du bis zu {props.output.entlastung_linke}€ mehr auf dem Konto haben und dennoch einen solidarischen
                         Beitrag für die gesamte Gesellschaft leisten. Hinzu kommen weitere Vergünstigungen und Angebote(*alle Quelle WP1),

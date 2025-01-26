@@ -52,7 +52,9 @@ export default function SliderChartWrapper() {
     return (
         <>
             <InputComponent value={userdata} setValue={setUserdata} />
-            <SteuernChart data={data} />
+            <div className="sd:p-8 p-4">
+                <SteuernChart data={data} />
+            </div>
             <div className="sd:p-8 p-4">
                 <CallToActionWrapper output={recom} />
             </div>
