@@ -16,6 +16,17 @@ export default function InputComponent(props: {
                 <p>Gib entweder deine Daten in Euro anonym ein oder nutze den Regler.</p>
                 <Input type="number" value={props.value.income} onChange={handleChange} />
                 <input type="range" min={0} max={130000} className="range" value={props.value.income} onChange={handleChange} />
+                <label>
+                    Bist du verheiratet und hast 2 Kinder? <input 
+                        type="checkbox" 
+                        name="children" 
+                        checked={props.value.children}
+                        onChange={(e) => props.setValue({ 
+                            ...props.value, 
+                            children: e.target.checked 
+                        })}
+                    />
+                </label>
             </div>
         </>
     );
