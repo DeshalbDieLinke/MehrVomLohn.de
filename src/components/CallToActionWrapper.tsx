@@ -4,7 +4,9 @@ export enum Status {
     "andere",
 }
 
-export function CallToActionWrapper(props: { output: { party: string; status: Status; entlastung_linke: number } }) {
+export function CallToActionWrapper(props: {
+    output: { party: string; status: Status; entlastung_linke: number; best_entlastung: number };
+}) {
     if (props.output.status == Status.linke) {
         return (
             <>
@@ -90,8 +92,11 @@ export function CallToActionWrapper(props: { output: { party: string; status: St
                     </ul>
 
                     <p>
-                        Finanziell profitierst du am meisten von (Partei XY) mit X.XXX€ – aber dabei bekommst du finanziell in der
-                        offiziellen Berechnung nicht gegengerechnete Nachteile: (PARTEI XY NACHTEILE TEXT)
+                        <b>
+                            Finanziell profitierst du am meisten von {props.output.party} mit {props.output.best_entlastung}€
+                        </b>
+                        {/*– aber dabei bekommst du finanziell in der offiziellen Berechnung nicht gegengerechnete Nachteile: (PARTEI XY
+                            NACHTEILE TEXT)*/}
                     </p>
                 </div>
             </>
@@ -129,8 +134,9 @@ export function CallToActionWrapper(props: { output: { party: string; status: St
                     </ul>
 
                     <p>
-                        Finanziell profitierst du am meisten von (Partei XY) mit X.XXX€ – aber dabei bekommst du finanziell in der
-                        offiziellen Berechnung nicht gegengerechnete Nachteile: (PARTEI XY NACHTEILE TEXT)
+                        <b>
+                            Finanziell profitierst du am meisten von der partei {props.output.party} mit {props.output.best_entlastung}€
+                        </b>
                     </p>
                 </div>
             </>

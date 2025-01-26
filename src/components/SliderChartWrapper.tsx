@@ -21,7 +21,7 @@ export interface TaxData {
     colors: { [key: string]: string };
 }
 
-function GetRecomendations(data: RechartsData[]): { party: string; status: Status; entlastung_linke: number } {
+function GetRecomendations(data: RechartsData[]): { party: string; status: Status; entlastung_linke: number; best_entlastung: number } {
     let max = { v: 0, p: "" };
     let dielinke_entlastung = 0;
     data.forEach((entry: RechartsData) => {
@@ -39,7 +39,7 @@ function GetRecomendations(data: RechartsData[]): { party: string; status: Statu
     if (dielinke_entlastung < 0) {
         status = Status.linkenegativ;
     }
-    return { party: max.p, status: status, entlastung_linke: dielinke_entlastung };
+    return { party: max.p, status: status, best_entlastung: max.v, entlastung_linke: dielinke_entlastung };
 }
 
 export default function SliderChartWrapper() {
