@@ -20,7 +20,8 @@ export function CallToActionWrapper(props: { output: { party: string; status: St
                     </p>
 
                     <p>
-                        Hinzu kommen weitere Vergünstigungen und Angebote(*alle Quelle WP1), die in die Berechnung des ZEW nicht einfließen:
+                        Hinzu kommen weitere Vergünstigungen und Angebote(*alle Quelle <a href="/Quellen#WP1">WP1</a>), die in die
+                        Berechnung des ZEW nicht einfließen:
                     </p>
                     <ul className="list-disc">
                         <li>
@@ -63,7 +64,7 @@ export function CallToActionWrapper(props: { output: { party: string; status: St
                     <p>
                         <b>Mit ihr hättest du zwar weniger auf dem Konto, aber leistest damit einen immensen Beitrag zur Gesellschaft.</b>{" "}
                         So trägst du zur Solidarität bei und finanzierst viele Projekte mit, von denen du und dein Umfeld auch profitieren
-                        würden (*alle Quelle WP1):
+                        würden (*alle Quelle <a href="/Quellen#WP1">WP1</a>):
                     </p>
                     <ul className="list-disc">
                         <li>Bundesweiter Mietendeckel – Durch gedeckelte Mieten, nicht nur in Großstädten, entgehst du Wuchermieten!</li>
@@ -106,8 +107,8 @@ export function CallToActionWrapper(props: { output: { party: string; status: St
                 <div className="p-6 bg-grey-background">
                     <p>
                         Mit ihr würdest du bis zu {props.output.entlastung_linke}€ mehr auf dem Konto haben und dennoch einen solidarischen
-                        Beitrag für die gesamte Gesellschaft leisten. Hinzu kommen weitere Vergünstigungen und Angebote(*alle Quelle WP1),
-                        die in die Berechnung des ZEW nicht einfließen:
+                        Beitrag für die gesamte Gesellschaft leisten. Hinzu kommen weitere Vergünstigungen und Angebote(*alle Quelle{" "}
+                        <a href="/Quellen#WP1">WP1</a>), die in die Berechnung des ZEW nicht einfließen:
                     </p>
                     <ul className="list-disc">
                         <li>Bundesweiter Mietendeckel – Durch gedeckelte Mieten, nicht nur in Großstädten, entgehst du Wuchermieten!</li>

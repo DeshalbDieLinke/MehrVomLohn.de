@@ -20,8 +20,13 @@ const subpath = pathname.match(/[^\/]+/g);
 				<Header client:load pathname={pathname} subpath={subpath} />
 			</section>
             <section class="introdcution">
-                <h2>Section Quellen</h2>
-                <p>Quellenangaben und so weiter bla bla blub</p>
+                <h2>Quellen:</h2>
+                <div class="sm:p-8 p-4">
+                <li class="list-dics">
+                    <ul id="#WP1">WP1 – Wahlprogramm <a href="https://ftp.zew.de/pub/zew-docs/gutachten/Bundestagswahlprogramme_ZEW_2025.pdf">https://www.die-linke.de/bundestagswahl-2025/wahlprogramm/</a></ul>
+                    <ul id="#ZEW">ZEW –  <a href="https://ftp.zew.de/pub/zew-docs/gutachten/Bundestagswahlprogramme_ZEW_2025.pdf">https://ftp.zew.de/pub/zew-docs/gutachten/Bundestagswahlprogramme_ZEW_2025.pdf</a></ul>
+                </li>
+                </div>
             </section>
 		</main>
 	</body>
