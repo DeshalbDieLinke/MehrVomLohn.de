@@ -7,6 +7,19 @@ export interface RechartsData {
     color: string;
 }
 
+function ChartTooltip({ payload, active, label }: any) {
+    if (active && payload && payload.length) {
+        return (
+            <div className="bg-white p-4 shadow-md">
+                <p className="text-lg">{`Partei: ${label}`}</p>
+                <p className="text-lg">{`Ersparnisse: ${payload[0].value}€`}</p>
+            </div>
+        )
+    }
+
+    return null;
+}
+
 const SteuernChart = (props: { data: RechartsData[] }) => {
     return (
         <ResponsiveContainer width="100%" height={600}>
@@ -18,7 +31,7 @@ const SteuernChart = (props: { data: RechartsData[] }) => {
                 <YAxis>
                     <Label value="Steuern in €" offset={0} position="insideLeft" angle={-90} />
                 </YAxis>
-                <Tooltip />
+                <Tooltip content={<ChartTooltip />}/>
                 <Bar isAnimationActive={false} dataKey="value">
                     {props.data.map((entry, index) => (
                         <Cell key={`cell-${index}`} fill={entry.color} />
