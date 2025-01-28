@@ -7,6 +7,22 @@ export enum Status {
 export function CallToActionWrapper(props: {
     output: { party: string; status: Status; entlastung_linke: number; best_entlastung: number };
 }) {
+    const format = () => {
+        if (props.output.party == "afd") {
+            return (
+                <>
+                    <span style={{ color: "#964B00" }}>der rechtsextremen AFD</span>
+                </>
+            );
+        } else if (props.output.party == "fdp") {
+            return (
+                <>
+                    <span>der FDP</span>
+                </>
+            );
+        }
+    };
+
     if (props.output.status == Status.linke) {
         return (
             <>
@@ -25,31 +41,24 @@ export function CallToActionWrapper(props: {
                         Hinzu kommen weitere Vergünstigungen und Angebote(*alle Quelle <a href="/Quellen#WP1">WP1</a>), die in die
                         Berechnung des ZEW nicht einfließen:
                     </p>
-                    <ul className="list-disc">
+                    <ul className="list-disc p-4">
                         <li>
-                            Bundesweiter Mietendeckel – Durch gedeckelte Mieten, nicht nur in Großstädten, entgehst du Wuchermieten!
-                            Mehrwertsteuer
+                            <b>Bundesweiter Mietendeckel</b> – Durch gedeckelte Mieten, nicht nur in Großstädten, entgehst du Wuchermieten!
                         </li>
                         <li>
-                            auf 0% senken für Grundnahrungsmittel, Hygieneprodukte und Bus- oder Bahntickets. Über eine Vermögenssteuer für
+                            <b>Mehrwertsteuer auf 0%</b> senken für Grundnahrungsmittel, Hygieneprodukte und Bus- oder Bahntickets. Über
+                            eine Vermögenssteuer für superreiche Milliardäre{" "}
+                            <b>profitierst du vom Ausbau der öffentlichen Infrastruktur, modernen Schulen und öffentlichen Einrichtungen</b>
                         </li>
                         <li>
-                            superreiche Milliardäre profitierst du vom Ausbau der öffentlichen Infrastruktur, modernen Schulen und
-                            öffentlichen
+                            Über eine einheitliche Krankenversicherung für alle wird der Krankenkassenbeitrag von{" "}
+                            <b>17,1% auf etwa 13,3%.</b> Abschlagsfreie Rente nach 40 Jahren Arbeit. Davon profitieren vor allem Menschen
+                            die schwer körperlich arbeiten!
                         </li>
                         <li>
-                            Einrichtungen. Über eine einheitliche Krankenversicherung für alle wird der Krankenkassenbeitrag von 17,1 auf
-                            etwa
+                            Ein erhöhter <b>Mindestlohn von 15€</b> pro Stunde führt automatisch zu besserem Einkommen! Kostenfreies
+                            Mittagessen in KiTas und Schulen Kostenfreie Kindertagesstätten und vieles mehr!
                         </li>
-                        <li>
-                            13,3%. Abschlagsfreie Rente nach 40 Jahren Arbeit. Davon profitieren vor allem Menschen die schwer körperlich
-                            arbeiten!
-                        </li>
-                        <li>
-                            Ein erhöhter Mindestlohn von 15€ pro Stunde führt automatisch zu besserem Einkommen! Kostenfreies Mittagessen in
-                            KiTas
-                        </li>
-                        <li>und Schulen Kostenfreie Kindertagesstätten und vieles mehr!</li>
                     </ul>
                 </div>
             </>
@@ -68,7 +77,14 @@ export function CallToActionWrapper(props: {
                         So trägst du zur Solidarität bei und finanzierst viele Projekte mit, von denen du und dein Umfeld auch profitieren
                         würden (*alle Quelle <a href="/Quellen#WP1">WP1</a>):
                     </p>
-                    <ul className="list-disc">
+                    <p>
+                        <b>
+                            Finanziell profitierst du am meisten von {format()} mit ca. {props.output.best_entlastung}€
+                        </b>
+                        {/*– aber dabei bekommst du finanziell in der offiziellen Berechnung nicht gegengerechnete Nachteile: (PARTEI XY
+                            NACHTEILE TEXT)*/}
+                    </p>
+                    <ul className="list-disc p-4">
                         <li>Bundesweiter Mietendeckel – Durch gedeckelte Mieten, nicht nur in Großstädten, entgehst du Wuchermieten!</li>
                         <li>
                             Mehrwertsteuer auf 0% senken für Grundnahrungsmittel, Hygieneprodukte und Bus- oder Bahntickets – so sparst du
@@ -90,14 +106,6 @@ export function CallToActionWrapper(props: {
                         <li>Klimageld, um gezahlte CO2-Steuern wieder rückerstattet zu bekommen.</li>
                         <li>und vieles mehr!</li>
                     </ul>
-
-                    <p>
-                        <b>
-                            Finanziell profitierst du am meisten von {props.output.party} mit {props.output.best_entlastung}€
-                        </b>
-                        {/*– aber dabei bekommst du finanziell in der offiziellen Berechnung nicht gegengerechnete Nachteile: (PARTEI XY
-                            NACHTEILE TEXT)*/}
-                    </p>
                 </div>
             </>
         );
@@ -105,8 +113,8 @@ export function CallToActionWrapper(props: {
     if (props.output.status == Status.andere) {
         return (
             <>
-                <h1 className="text-4xl flex flex-row">
-                    Wir empfehlen dir: – <div style={{ color: "#ff0000" }}>Die Linke</div>:
+                <h1 className="text-4xl">
+                    Wir empfehlen dir: – <span style={{ color: "#ff0000" }}>Die Linke</span>:
                 </h1>
 
                 <div className="p-6 bg-grey-background">
@@ -115,7 +123,14 @@ export function CallToActionWrapper(props: {
                         Beitrag für die gesamte Gesellschaft leisten. Hinzu kommen weitere Vergünstigungen und Angebote(*alle Quelle{" "}
                         <a href="/Quellen#WP1">WP1</a>), die in die Berechnung des ZEW nicht einfließen:
                     </p>
-                    <ul className="list-disc">
+                    <p>
+                        <b>
+                            Finanziell profitierst du am meisten von {format()} mit ca. {props.output.best_entlastung}€
+                        </b>
+                        {/*– aber dabei bekommst du finanziell in der offiziellen Berechnung nicht gegengerechnete Nachteile: (PARTEI XY
+                            NACHTEILE TEXT)*/}
+                    </p>
+                    <ul className="list-disc p-4">
                         <li>Bundesweiter Mietendeckel – Durch gedeckelte Mieten, nicht nur in Großstädten, entgehst du Wuchermieten!</li>
                         <li>Mehrwertsteuer auf 0% senken für Grundnahrungsmittel, Hygieneprodukte und Bus- oder Bahntickets.</li>
                         <li>
@@ -132,12 +147,6 @@ export function CallToActionWrapper(props: {
                         <li>Klimageld, um gezahlte CO2-Steuern wieder rückerstattet zu bekommen.</li>
                         <li>und vieles mehr!</li>
                     </ul>
-
-                    <p>
-                        <b>
-                            Finanziell profitierst du am meisten von der partei {props.output.party} mit {props.output.best_entlastung}€
-                        </b>
-                    </p>
                 </div>
             </>
         );

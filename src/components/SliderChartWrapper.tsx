@@ -47,7 +47,7 @@ export default function SliderChartWrapper() {
 
     let data = CalcGraphData(taxdata.taxgroups, taxdata.colors, userdata);
     let recom = GetRecomendations(data);
-    console.log(recom);
+    // console.log(recom);
 
     return (
         <>
@@ -57,6 +57,10 @@ export default function SliderChartWrapper() {
             </div>
             <div className="sd:p-8 p-4">
                 <CallToActionWrapper output={recom} />
+                <p>
+                    Es wird keine Haftung für die Daten &Uuml;bernommen. Sie stammen aus der <a href="/Quellen#ZEW">ZEW-Studie</a> und
+                    wurden skaliert.
+                </p>
             </div>
         </>
     );
@@ -70,22 +74,64 @@ function isNumberString(value: string): boolean {
     return !isNaN(Number(value));
 }
 
+// TODO: fix types
+function PushTaxgroupToData(taxgroup: TaxGroup, userinput: any, colors: any): [RechartsData[], boolean] {
+    let data: RechartsData[] = [];
+    for (const [key, value] of Object.entries(taxgroup)) {
+        if (key !== "type") {
+            data.push({ name: key, value: value[0] * (userinput.income / 100), color: colors[key] });
+        }
+    }
+    console.log(taxgroup);
+    return [data, true];
+}
+
+// TODO: fix types
 function CalcGraphData(taxgroups: TaxGroup[], colors: any, userinput: any): RechartsData[] {
     let data: RechartsData[] = [];
+
     let found = false;
     taxgroups.forEach((taxgroup: TaxGroup) => {
+        if (userinput.children && !found && !isNumberString(taxgroup.type)) {
+            let familyFourtyK = userinput.income <= 40000 && taxgroup.type == "twochildrenfourtyk";
+            let familySixtyK = userinput.income <= 60000 && taxgroup.type == "twochildrenfourtyk";
+            let familyEightyK = userinput.income <= 80000 && taxgroup.type == "twochildreneightk";
+            let familySemiRich = userinput.income <= 120000 && taxgroup.type == "twochildrenonetwentyk";
+            let familyRichRich = userinput.income <= 180000 && taxgroup.type == "twochildrenveryrich";
+            // console.log(familyFourtyK, familySixtyK, familyEightyK, familyRichRich);
+            //it needs to be exclusiv -> if else. fuck this. tomorrow prod.
+            if (familyFourtyK) {
+                console.log(taxgroup);
+                let res = PushTaxgroupToData(taxgroup, userinput, colors);
+                data = res[0];
+                found = res[1];
+            } else if (familySixtyK) {
+                let res = PushTaxgroupToData(taxgroup, userinput, colors);
+                data = res[0];
+                found = res[1];
+            } else if (familyEightyK) {
+                let res = PushTaxgroupToData(taxgroup, userinput, colors);
+                data = res[0];
+                found = res[1];
+            } else if (familySemiRich) {
+                let res = PushTaxgroupToData(taxgroup, userinput, colors);
+                data = res[0];
+                found = res[1];
+            } else if (familyRichRich) {
+                let res = PushTaxgroupToData(taxgroup, userinput, colors);
+                data = res[0];
+                found = res[1];
+            }
+        }
         if (
-            // !props.userinput.children &&
+            !userinput.children &&
             isNumberString(taxgroup.type) &&
             UserIncomeIsInGroup(userinput.income, parseInt(taxgroup.type, 10)) &&
             !found
         ) {
-            for (const [key, value] of Object.entries(taxgroup)) {
-                if (key !== "type") {
-                    data.push({ name: key, value: value[0] * (userinput.income / 100), color: colors[key] });
-                }
-            }
-            found = true;
+            let res = PushTaxgroupToData(taxgroup, userinput, colors);
+            data = res[0];
+            found = res[1];
         }
     });
 
