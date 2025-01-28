@@ -57,10 +57,6 @@ export default function SliderChartWrapper() {
             </div>
             <div className="sd:p-8 p-4">
                 <CallToActionWrapper output={recom} />
-                <p>
-                    Es wird keine Haftung für die Daten &Uuml;bernommen. Sie stammen aus der <a href="/Quellen#ZEW">ZEW-Studie</a> und
-                    wurden skaliert.
-                </p>
             </div>
         </>
     );
@@ -87,6 +83,7 @@ function PushTaxgroupToData(taxgroup: TaxGroup, userinput: any, colors: any): [R
 }
 
 // TODO: fix types
+// TODO: add a proper algo. now everything only works if the data in taxdata.json is the the right order
 function CalcGraphData(taxgroups: TaxGroup[], colors: any, userinput: any): RechartsData[] {
     let data: RechartsData[] = [];
 
