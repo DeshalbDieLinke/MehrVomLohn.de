@@ -34,7 +34,8 @@ export function CallToActionWrapper(props: {
                     <p>
                         Für dich springt am meisten heraus bei: <b>Die Linke!</b> <br />
                         Mit der Linke kannst du bis zu <b>{props.output.entlastung_linke}€ mehr im Jahr</b> erhalten, weil das
-                        Steuerprogramm in diesem Bereich sehr starke Entlastungen vorsieht. <b>So stark entlastet dich keine andere Partei!</b>
+                        Steuerprogramm in diesem Bereich sehr starke Entlastungen vorsieht.{" "}
+                        <b>So stark entlastet dich keine andere Partei!</b>
                     </p>
 
                     <p>
@@ -46,8 +47,8 @@ export function CallToActionWrapper(props: {
                             <b>Bundesweiter Mietendeckel</b> – Durch gedeckelte Mieten, nicht nur in Großstädten, entgehst du Wuchermieten!
                         </li>
                         <li>
-                        <b>Mehrwertsteuer auf 0%</b> senken für Grundnahrungsmittel, Hygieneprodukte und Bus- oder Bahntickets – so sparst du
-                            mehr Geld ein.
+                            <b>Mehrwertsteuer auf 0%</b> senken für Grundnahrungsmittel, Hygieneprodukte und Bus- oder Bahntickets – so
+                            sparst du mehr Geld ein.
                         </li>
                         <li>
                             Über eine Vermögenssteuer für superreiche Milliardäre und hohe Steuern für Reiche{" "}
@@ -78,8 +79,8 @@ export function CallToActionWrapper(props: {
                         <li>und vieles mehr!</li>
                     </ul>
                     <p>
-                        Es wird keine Haftung für die Daten &Uuml;bernommen. Sie stammen aus der <a href="/Quellen#ZEW">ZEW-Studie</a> und
-                        wurden skaliert.
+                        Es wird keine Garantie für eine exakte Korrektheit der Zahlen übernommen. Die Daten stammen aus einer{" "}
+                        <a href="/Quellen#ZEW">Studie des ZEW</a> und wurden durch uns ausschließlich skaliert.
                     </p>
                 </div>
             </>
