@@ -37,12 +37,11 @@ export function CallToActionWrapper(props: {
                             Mit {props.output.party.toUpperCase()} hättest du zwar mehr auf dem Konto, aber der Kontostand alleine ist nicht
                             alles.
                         </b>
-                        <span className="flex">
+                        <span className="flex flex-col">
                             <p>
                                 <img src="/logos/linke.svg" className="float-start h-8 rounded-none mx-2" />
                                 Garantiert dir zwar vergleichbar weniger Entlastung aber viele alternative{" "}
-                                <a href="#DieLinke">Vorschläge</a>, um das Leben aller Menschen zu verbessern.(*Quellen{" "}
-                                <a href="/Quellen#WP1">WP1</a>)
+                                <a href="#DieLinke">Vorschläge</a>, um das Leben aller Menschen zu verbessern.
                             </p>
                             <ListeDieLinke />
                         </span>
