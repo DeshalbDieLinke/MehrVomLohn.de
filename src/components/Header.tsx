@@ -1,9 +1,7 @@
-import { useState } from "react";
 import HeaderLink from "./HeaderLink.tsx";
 import { SITE_TITLE } from "../consts";
 
 export default function Header(props: { pathname: string; subpath: any }) {
-  var [burgerState, setBurgerState] = useState(false);
   const css = `
 	header {
 		height: 3.5rem;
@@ -51,15 +49,11 @@ export default function Header(props: { pathname: string; subpath: any }) {
   return (
     <>
       <style>{css}</style>
-      <header className="z-10 h-[3.5rem] sticky top-0 bg-white">
-        <nav>
-          <div className="flex items-center space-x-2 pl-0">
+      <header className="z-10 h-[3.5rem] sticky top-0 bg-white flex flex-row w-full">
+        <nav className="w-full">
+         <div className="flex items-center space-x-2 pl-0">
             <a href="/" className="flex items-center">
-              <img
-                className="scale-150 md:fixed absolute h-[2.8rem] top-10 left-10 rounded-none"
-                src="/images/logos/DDL-Logo.svg"
-                alt="Logo"
-              />
+            {SITE_TITLE}
             </a>
           </div>
           <div className="internal-links lg:block p-[1.1rem] hidden">
@@ -76,7 +70,14 @@ export default function Header(props: { pathname: string; subpath: any }) {
               title="Quellen"
             ></HeaderLink>
           </div>
-          <div className="lg:block hidden"></div>
+          <div className="lg:hidden block">
+            <HeaderLink
+              pathname={props.pathname}
+              subpath={props.subpath}
+              href="/Quellen"
+              title="Quellen"
+            ></HeaderLink>
+          </div>
         </nav>
       </header>
     </>
