@@ -1,6 +1,6 @@
 
 export default function ListeDieLinke() {
-    return  <ul className="list-disc p-4 [&>li]:pt-3 *:text-[1rem] ">
+    return  <ul className="list-disc p-4 [&>li]:pt-3 *:text-2xl ">
     <li>
         <b>Bundesweiter Mietendeckel</b> – Durch gedeckelte Mieten, nicht nur in Großstädten, entgehst du Wuchermieten!
     </li>
