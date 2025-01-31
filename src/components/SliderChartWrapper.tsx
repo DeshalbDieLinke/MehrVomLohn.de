@@ -94,7 +94,7 @@ function CalcGraphData(taxgroups: TaxGroup[], colors: any, userinput: any): Rech
             let familySixtyK = userinput.income <= 60000 && taxgroup.type == "twochildrenfourtyk";
             let familyEightyK = userinput.income <= 80000 && taxgroup.type == "twochildreneightk";
             let familySemiRich = userinput.income <= 120000 && taxgroup.type == "twochildrenonetwentyk";
-            let familyRichRich = userinput.income <= 180000 && taxgroup.type == "twochildrenveryrich";
+            let familyRichRich = userinput.income <= 180000 && taxgroup.type == "twochildrenveryrich" || userinput.income > 180000 && taxgroup.type == "twochildrenveryrich";
             // console.log(familyFourtyK, familySixtyK, familyEightyK, familyRichRich);
             //it needs to be exclusiv -> if else. fuck this. tomorrow prod.
             if (familyFourtyK) {
