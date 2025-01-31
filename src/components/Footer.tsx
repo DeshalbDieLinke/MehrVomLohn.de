@@ -2,7 +2,7 @@ export default function Footer() {
     return (
         <>
             <div className="bg-grey-background">
-                <div className="text-center bg-grey-background pt-4">
+                <div className="text-center bg-grey-background pt-4 px-2">
                     Ein Projekt der ehrenamtlichen Kampagne <a href="https://www.deshalbdielinke.de">#deshalbdielinke</a>
                 </div>
                 <div className="relative text-center bg-grey-background p-6 bottom-0 w-full h-[4rem]  ">

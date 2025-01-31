@@ -103,11 +103,11 @@ export function CallToActionWrapper(props: {
                         </li>
                         <li>und vieles mehr!</li>
                     </ul>
+                    {party_link}
                     <p className="text-lg">
                         Es wird keine Garantie für eine exakte Korrektheit der Zahlen übernommen. Die Daten stammen aus einer{" "}
                         <a href="/Quellen#ZEW">Studie des ZEW</a> und wurden durch uns ausschließlich skaliert.
                     </p>
-                    {party_link}
                 </div>
             </>
         );
@@ -172,11 +172,11 @@ export function CallToActionWrapper(props: {
                         </li>
                         <li>und vieles mehr!</li>
                     </ul>
+                    {party_link}
                     <p className="text-lg">
                         Es wird keine Garantie für eine exakte Korrektheit der Zahlen übernommen. Die Daten stammen aus einer{" "}
                         <a href="/Quellen#ZEW">Studie des ZEW</a> und wurden durch uns ausschließlich skaliert.
                     </p>
-                    {party_link}
                 </div>
             </>
         );
@@ -240,11 +240,11 @@ export function CallToActionWrapper(props: {
                         </li>
                         <li>und vieles mehr!</li>
                     </ul>
+                    {party_link}
                     <p className="text-lg">
                         Es wird keine Garantie für eine exakte Korrektheit der Zahlen übernommen. Die Daten stammen aus einer{" "}
                         <a href="/Quellen#ZEW">Studie des ZEW</a> und wurden durch uns ausschließlich skaliert.
                     </p>
-                    {party_link}
                 </div>
             </>
         );

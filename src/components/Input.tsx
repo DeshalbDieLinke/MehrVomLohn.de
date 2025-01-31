@@ -15,7 +15,9 @@ export default function InputComponent(props: {
         <>
             <div className="pt-8 px-8 flex flex-col gap-8 py-8">
                 <h1 className="text-3xl">Wie hoch ist dein Bruttoeinkommen im Jahr in Euro?</h1>
-                <p>Gib deine Daten in Euro anonym mit dem Regler {"(<130.000)"} oder in das Nummernfeld {"(<2.000.000)"}.</p>
+                <p>
+                    Gib deine Daten in Euro anonym mit dem Regler {"(<130.000)"} oder in das Nummernfeld {"(<2.000.000)"}.
+                </p>
                 <div className="flex flex-col sm:flex-row gap-4">
                     <div className="w-full">
                         <Input type="number" value={props.value.income} onChange={handleChange} max={2_000_000_0} />
@@ -36,7 +38,7 @@ export default function InputComponent(props: {
                             </SelectTrigger>
                             <SelectContent>
                                 <SelectItem value="single">Single</SelectItem>
-                                <SelectItem value="twochilden">Ehepaar mit 2 Kindern</SelectItem>
+                                <SelectItem value="twochilden">Ehepaar mit 2 Kindern (Haushaltseinkommen)</SelectItem>
                             </SelectContent>
                         </Select>
                     </div>
