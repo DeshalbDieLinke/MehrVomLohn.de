@@ -70,7 +70,14 @@ export default function Header(props: { pathname: string; subpath: any }) {
               title="Quellen"
             ></HeaderLink>
           </div>
-          <div className="lg:block hidden"></div>
+          <div className="lg:hidden block">
+            <HeaderLink
+              pathname={props.pathname}
+              subpath={props.subpath}
+              href="/Quellen"
+              title="Quellen"
+            ></HeaderLink>
+          </div>
         </nav>
       </header>
     </>

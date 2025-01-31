@@ -1,6 +1,8 @@
 import BestesErgebnis from "./BestesErgebnis";
 import Callout from "./Callout";
 import ListeDieLinke from "./ListeDieLinke";
+import Card from "./Card.tsx";
+
 
 export enum Status {
     "linke",
@@ -26,10 +28,31 @@ export function CallToActionWrapper(props: {
             );
         }
     };
+     let party_link = (
+        <>
+            <div className="flex flex-row items-center justify-evenly flex-wrap">
+                <Card
+                    title="#Deshalbdielinke"
+                    description="Du willst mehr Gründe haben?"
+                    image="/images/Machen.png"
+                    action="Besuchen"
+                    link="https://www.deshalbdielinke.de"
+                />
+                <Card
+                    title="Die Linke"
+                    description="Die Website der Bundespartei Die Linke."
+                    image="/images/Logo_Linke.png"
+                    action="Besuchen"
+                    link="https://www.die-linke.de"
+                />
+            </div>
+        </>
+    );
+
     return (
             <>  
-
                 <BestesErgebnis party={props.output.party} />
+
 
                 <div className="p-6 bg-grey-background text-2xl">
 
@@ -43,13 +66,11 @@ export function CallToActionWrapper(props: {
                         Steuerprogramm in diesem Bereich sehr starke Entlastungen vorsieht.{" "}
                         <b>So stark entlastet dich keine andere Partei!</b>
                         </p>
-
                         <p>
                             Hinzu kommen weitere Vergünstigungen und Angebote(*alle Quelle <a href="/Quellen#WP1">WP1</a>), die in die
                             Berechnung des ZEW nicht einfließen:
                         </p>
                         <ListeDieLinke />
-
                     </div> }
                     {/* Die Linke BELASTET */}
                     {props.output.status == Status.linkenegativ &&  
@@ -73,6 +94,7 @@ export function CallToActionWrapper(props: {
 
                     </p>
                 </Callout>
+                    {party_link}
                     }
                     <p className="text-lg">
                             Es wird keine Garantie für eine exakte Korrektheit der Zahlen übernommen. Die Daten stammen aus einer{" "}

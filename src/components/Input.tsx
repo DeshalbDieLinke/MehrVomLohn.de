@@ -38,7 +38,7 @@ export default function InputComponent(props: {
                             </SelectTrigger>
                             <SelectContent>
                                 <SelectItem value="single">Single</SelectItem>
-                                <SelectItem value="twochilden">Ehepaar mit 2 Kindern</SelectItem>
+                                <SelectItem value="twochilden">Ehepaar mit 2 Kindern (Haushaltseinkommen)</SelectItem>
                             </SelectContent>
                         </Select>
                     </div>
