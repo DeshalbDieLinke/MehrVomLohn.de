@@ -5,14 +5,6 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 import SliderChartWrapper from '../components/SliderChartWrapper.tsx';
 import Introdcution from '../components/Introduction.tsx';
 import Footer from '../components/Footer.tsx';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-  } from "../components/ui/card.tsx";
 
 const pathname = Astro.url.pathname.replace(import.meta.env.BASE_URL, '');
 const subpath = pathname.match(/[^\/]+/g);
@@ -27,44 +19,23 @@ const subpath = pathname.match(/[^\/]+/g);
 	<body >
 		<!-- <Header /> -->
 		<main>
+            <Header client:load pathname={pathname} subpath={subpath} />
 			<section class="introdcution">
-				<Header client:load pathname={pathname} subpath={subpath} />
                 <Introdcution />
             </section>
             <section id="MAIN">
                 <SliderChartWrapper client:load/>
             </section>
-            <section>
-                <div style="margin-top: 50px;">
-                    <Footer />
-                </div>
-            </section>
+            <Footer />
 		</main>
 	</body>
 </html>
 
-<!-- <style>  -->
-<!--     main { -->
-<!-- 		height: 100vh; /*height: calc(100vh - 3.5rem); */ -->
-<!-- 		overflow-x: hidden; -->
-<!-- 		overflow-y: scroll; -->
-<!-- 		scroll-snap-type: y mandatory; -->
-<!-- 	} -->
-<!-- 	section { -->
-<!-- 		position: relative; -->
-<!-- 		height:  100%; -->
-<!-- 		scroll-snap-align: start; -->
-<!-- 	} -->
-<!--     @media (max-width: 1200px) { -->
-<!-- 		main { -->
-<!-- 			height: auto; -->
-<!-- 		} -->
-<!-- 		section { -->
-<!-- 			height: fit-content; -->
-<!-- 			scroll-snap-align: none; -->
-<!-- 		} -->
-<!-- 		.introdcution {; -->
-<!-- 			height: 100vh; -->
-<!-- 		} -->
-<!-- 	} -->
-<!-- </style>  -->
+<style> 
+	@media (min-width: 2000px) {
+        section {
+            padding-left: 20rem;
+            padding-right: 20rem;
+        }
+    }
+</style> 

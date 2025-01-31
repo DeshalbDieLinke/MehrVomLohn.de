@@ -1,3 +1,5 @@
+import Card from "./Card.tsx";
+
 export enum Status {
     "linke",
     "linkenegativ",
@@ -22,6 +24,26 @@ export function CallToActionWrapper(props: {
             );
         }
     };
+    let party_link = (
+        <>
+            <div className="flex flex-row items-center justify-evenly flex-wrap">
+                <Card
+                    title="#Deshalbdielinke"
+                    description="Du willst mehr Gründe haben?"
+                    image="/images/Machen.png"
+                    action="Besuchen"
+                    link="https://www.deshalbdielinke.de"
+                />
+                <Card
+                    title="Die Linke"
+                    description="Die Website der Bundespartei Die Linke."
+                    image="/images/Logo_Linke.png"
+                    action="Besuchen"
+                    link="https://www.die-linke.de"
+                />
+            </div>
+        </>
+    );
 
     if (props.output.status == Status.linke) {
         return (
@@ -30,7 +52,7 @@ export function CallToActionWrapper(props: {
                     Bestes Ergebnis – <div style={{ color: "#ff0000" }}>Die Linke</div>:
                 </h1>
 
-                <div className="p-6 bg-grey-background text-2xl">
+                <div className="p-6 bg-red-300 text-2xl">
                     <p>
                         Für dich springt am meisten heraus bei: <b>Die Linke!</b> <br />
                         Mit der Linke kannst du bis zu <b>{props.output.entlastung_linke}€ mehr im Jahr</b> erhalten, weil das
@@ -39,8 +61,11 @@ export function CallToActionWrapper(props: {
                     </p>
 
                     <p>
-                        Hinzu kommen weitere Vergünstigungen und Angebote(*alle Quelle <a href="/Quellen#WP1">WP1</a>), die in die
-                        Berechnung des ZEW nicht einfließen:
+                        Hinzu kommen weitere Vergünstigungen und Angebote(*alle Quelle{" "}
+                        <sup>
+                            <a href="/Quellen#WP1">WP1</a>
+                        </sup>
+                        ), die in die Berechnung des ZEW nicht einfließen:
                     </p>
                     <ul className="list-disc p-4">
                         <li>
@@ -82,6 +107,7 @@ export function CallToActionWrapper(props: {
                         Es wird keine Garantie für eine exakte Korrektheit der Zahlen übernommen. Die Daten stammen aus einer{" "}
                         <a href="/Quellen#ZEW">Studie des ZEW</a> und wurden durch uns ausschließlich skaliert.
                     </p>
+                    {party_link}
                 </div>
             </>
         );
@@ -97,7 +123,11 @@ export function CallToActionWrapper(props: {
                     <p>
                         <b>Mit ihr hättest du zwar weniger auf dem Konto, aber leistest damit einen immensen Beitrag zur Gesellschaft.</b>{" "}
                         So trägst du zur Solidarität bei und finanzierst viele Projekte mit, von denen du und dein Umfeld auch profitieren
-                        würden (*alle Quelle <a href="/Quellen#WP1">WP1</a>):
+                        würden (*alle Quelle{" "}
+                        <sup>
+                            <a href="/Quellen#WP1">WP1</a>
+                        </sup>
+                        ):
                     </p>
                     <p>
                         <b>
@@ -146,6 +176,7 @@ export function CallToActionWrapper(props: {
                         Es wird keine Garantie für eine exakte Korrektheit der Zahlen übernommen. Die Daten stammen aus einer{" "}
                         <a href="/Quellen#ZEW">Studie des ZEW</a> und wurden durch uns ausschließlich skaliert.
                     </p>
+                    {party_link}
                 </div>
             </>
         );
@@ -161,7 +192,10 @@ export function CallToActionWrapper(props: {
                     <p>
                         Mit ihr würdest du bis zu {props.output.entlastung_linke}€ mehr auf dem Konto haben und dennoch einen solidarischen
                         Beitrag für die gesamte Gesellschaft leisten. Hinzu kommen weitere Vergünstigungen und Angebote(*alle Quelle{" "}
-                        <a href="/Quellen#WP1">WP1</a>), die in die Berechnung des ZEW nicht einfließen:
+                        <sup>
+                            <a href="/Quellen#WP1">WP1</a>
+                        </sup>
+                        ), die in die Berechnung des ZEW nicht einfließen:
                     </p>
                     <p>
                         <b>
@@ -210,6 +244,7 @@ export function CallToActionWrapper(props: {
                         Es wird keine Garantie für eine exakte Korrektheit der Zahlen übernommen. Die Daten stammen aus einer{" "}
                         <a href="/Quellen#ZEW">Studie des ZEW</a> und wurden durch uns ausschließlich skaliert.
                     </p>
+                    {party_link}
                 </div>
             </>
         );
