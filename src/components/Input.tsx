@@ -14,8 +14,10 @@ export default function InputComponent(props: {
     return (
         <>
             <div className="pt-8 px-8 flex flex-col gap-8 py-8">
-                <h1 className="text-3xl">Wie hoch ist dein Bruttoeinkommen im Jahr in Euro?</h1>
-                <p>Gib deine Daten in Euro anonym im Nummernfeld ein oder nutze den Regler.</p>
+                <div>
+                <h1 className="text-3xl ">Wie hoch ist dein Bruttoeinkommen im Jahr in Euro?</h1>
+                <p className="text-xs">Gib deine Daten in Euro anonym im Nummernfeld ein oder nutze den Regler.</p>
+                </div>
                 <div className="flex flex-col sm:flex-row gap-4">
                     <div className="w-full">
                         <Input type="number" value={props.value.income} onChange={handleChange} max={2_000_000_0} />

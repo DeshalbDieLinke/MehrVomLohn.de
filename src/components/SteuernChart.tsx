@@ -36,7 +36,8 @@ const SteuernChart = (props: { data: RechartsData[] }) => {
                     {props.data.map((entry, index) => (
                         <Cell key={`cell-${index}`} fill={entry.color} />
                     ))}
-                    <LabelList dataKey="name" position="inside" fill="#ffffff" angle={-90} fontSize={20} />
+                    {/* Uppercase the Names using a formatter func */}
+                    <LabelList dataKey="name" position="inside" fill="#ffffff" angle={-90} fontSize={20} formatter={(value: string)=>{return value.toUpperCase()}}/> 
                 </Bar>
             </BarChart>
         </ResponsiveContainer>

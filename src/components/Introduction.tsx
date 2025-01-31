@@ -1,7 +1,7 @@
 export default function Introduction() {
     let imgList = ["https://www.flaggenmeer.de/media/08/9f/40/1622821604/flagge-deutschland-adler-querformat.jpg?ts=1644663943"];
     return (
-        <section>
+        <section  className="border-y-2 border-black">
             {/*<!--<img
                 src={imgList[Math.floor(Math.random() * imgList.length)]}
                 alt="Your image"
