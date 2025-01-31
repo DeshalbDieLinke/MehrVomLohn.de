@@ -1,7 +1,7 @@
 import BestesErgebnis from "./BestesErgebnis";
 import Callout from "./Callout";
 import ListeDieLinke from "./ListeDieLinke";
-import PartyLinks from "./PartyLinks.tsx";
+// import PartyLinks from "./PartyLinks.tsx";
 
 export enum Status {
     "linke",
@@ -16,7 +16,7 @@ export function CallToActionWrapper(props: {
         <>
             <BestesErgebnis party={props.output.party} />
 
-            <div className="p-6 bg-grey-background text-2xl">
+            <div className="p-2 md:p-6 bg-grey-background text-2xl">
                 {/* Die Linke ist bester Wert */}
                 {props.output.status == Status.linke && (
                     <div className="border-y-2 border-black p-4">
