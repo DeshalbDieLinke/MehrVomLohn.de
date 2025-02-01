@@ -55,7 +55,7 @@ export default function SliderChartWrapper() {
             <div className="sd:p-8 p-4">
                 <SteuernChart data={data} />
             </div>
-            <div className="sd:p-8 p-4">
+            <div className="">
                 <CallToActionWrapper output={recom} />
             </div>
         </>

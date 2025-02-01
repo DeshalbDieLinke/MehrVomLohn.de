@@ -1,5 +1,6 @@
 export default function Introduction() {
     return (
+
         <section>
             <div className="inset-0 bg-red-300 h-full flex items-center flex-col justify-evenly">
                 <h1 className="text-white h-[60%] text-center text-[4rem] sm:text-7xl md:text-[8rem] xl:text-[13rem] font-black md:leading-tight p-10 flex justify-center items-center">
