@@ -52,8 +52,9 @@ export function CallToActionWrapper(props: {
                     <Callout>
                         <b className="w-fit">Wir Empfehlen dennoch Die Linke: </b>
                         <p>
-                            Mit ihr würdest du bis zu {props.output.entlastung_linke}€ mehr auf dem Konto haben und auch noch einen
-                            solidarischen Beitrag für die gesamte Gesellschaft leisten. Dabei Springt natürlich auch viel für dich raus.
+                            Mit ihr würdest du bis zu <b>{props.output.entlastung_linke}€</b> mehr auf dem Konto haben und auch noch einen
+                            solidarischen Beitrag für die gesamte Gesellschaft leisten. <b> Es könnten bis zu 82% der Bevölkerung entlastet werden <a href="/Quellen#BME">[BME]</a>. 
+                            </b> Dabei Springt natürlich auch viel für dich raus.
                             <ListeDieLinke />
                         </p>
                     </Callout>
