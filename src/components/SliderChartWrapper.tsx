@@ -43,9 +43,10 @@ function GetRecomendations(data: RechartsData[]): { party: string; status: Statu
 }
 
 export default function SliderChartWrapper() {
-    let [userdata, setUserdata] = useState({ income: 25000, children: false });
+    let [userdata, setUserdata] = useState({ income: 25000, children: "paar" });
 
     let data = CalcGraphData(taxdata.taxgroups, taxdata.colors, userdata);
+    console.log(data);
     let recom = GetRecomendations(data);
     // console.log(recom);
 
@@ -79,6 +80,7 @@ function PushTaxgroupToData(taxgroup: TaxGroup, userinput: any, colors: any): [R
         }
     }
     console.log(taxgroup);
+    console.log(data);
     return [data, true];
 }
 
@@ -89,12 +91,14 @@ function CalcGraphData(taxgroups: TaxGroup[], colors: any, userinput: any): Rech
 
     let found = false;
     taxgroups.forEach((taxgroup: TaxGroup) => {
-        if (userinput.children && !found && !isNumberString(taxgroup.type)) {
+        if (userinput.children == "towchild" && !found && taxgroup.type.includes("twochildren")) {
             let familyFourtyK = userinput.income <= 40000 && taxgroup.type == "twochildrenfourtyk";
             let familySixtyK = userinput.income <= 60000 && taxgroup.type == "twochildrenfourtyk";
             let familyEightyK = userinput.income <= 80000 && taxgroup.type == "twochildreneightk";
             let familySemiRich = userinput.income <= 120000 && taxgroup.type == "twochildrenonetwentyk";
-            let familyRichRich = userinput.income <= 180000 && taxgroup.type == "twochildrenveryrich" || userinput.income > 180000 && taxgroup.type == "twochildrenveryrich";
+            let familyRichRich =
+                (userinput.income <= 180000 && taxgroup.type == "twochildrenveryrich") ||
+                (userinput.income > 180000 && taxgroup.type == "twochildrenveryrich");
             // console.log(familyFourtyK, familySixtyK, familyEightyK, familyRichRich);
             //it needs to be exclusiv -> if else. fuck this. tomorrow prod.
             if (familyFourtyK) {
@@ -121,9 +125,17 @@ function CalcGraphData(taxgroups: TaxGroup[], colors: any, userinput: any): Rech
             }
         }
         if (
-            !userinput.children &&
-            isNumberString(taxgroup.type) &&
+            (userinput.children == "sinlge" && isNumberString(taxgroup.type) ) &&
             UserIncomeIsInGroup(userinput.income, parseInt(taxgroup.type, 10)) &&
+            !found
+        ) {
+            let res = PushTaxgroupToData(taxgroup, userinput, colors);
+            data = res[0];
+            found = res[1];
+        }
+        if (
+            (userinput.children == "paar" && taxgroup.type.includes("paar")) &&
+            UserIncomeIsInGroup(userinput.income, parseInt(taxgroup.type.replace("paar", ""), 10)) &&
             !found
         ) {
             let res = PushTaxgroupToData(taxgroup, userinput, colors);

@@ -29,7 +29,7 @@ const SteuernChart = (props: { data: RechartsData[] }) => {
                     <Label value="Parteien" offset={0} position="insideBottom" />
                 </XAxis>
                 <YAxis>
-                    <Label value="Steuern in €" offset={0} position="insideLeft" angle={-90} />
+                    <Label value="Veränderung im verfügbaren Einkommen in €" offset={0} position="insideLeft" angle={-90} />
                 </YAxis>
                 <Tooltip content={<ChartTooltip />}/>
                 <Bar isAnimationActive={false} dataKey="value">

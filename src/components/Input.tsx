@@ -3,10 +3,9 @@ import { useState, type ChangeEvent } from "react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 export default function InputComponent(props: {
-    value: { income: number; children: boolean };
-    setValue: (value: { income: number; children: boolean }) => void;
+    value: { income: number; children: string };
+    setValue: (value: { income: number; children: string }) => void;
 }) {
-    const [selectedOption, setSelectedOption] = useState(props.value.children ? "twochilden" : "single");
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         props.setValue({ ...props.value, income: parseInt(event.target.value) });
     };
@@ -23,27 +22,27 @@ export default function InputComponent(props: {
                         <Input type="number" value={props.value.income} onChange={handleChange} max={2_000_000_0} />
                     </div>
                     <div className="w-full sm:w-[180px]">
-                        <Select
+                    <Select
                             onValueChange={(e) => {
                                 props.setValue({
                                     ...props.value,
-                                    children: e == "twochilden",
+                                    children: e,
                                 });
-                                setSelectedOption(e);
                             }}
-                            value={selectedOption}
+                            value={props.value.children}
                         >
                             <SelectTrigger>
                                 <SelectValue />
                             </SelectTrigger>
                             <SelectContent>
+                            <SelectItem value="paar">Paar</SelectItem>
                                 <SelectItem value="single">Single</SelectItem>
                                 <SelectItem value="twochilden">Ehepaar mit 2 Kindern (Haushaltseinkommen)</SelectItem>
                             </SelectContent>
                         </Select>
-                    </div>
+                        </div>
                 </div>
-                <input type="range" min={0} max={130000} className="range" value={props.value.income} onChange={handleChange} />
+                <input type="range" min={0} max={80000} className="range" value={props.value.income} onChange={handleChange} />
             </div>
         </>
     );
