@@ -125,7 +125,7 @@ function CalcGraphData(taxgroups: TaxGroup[], colors: any, userinput: any): Rech
             }
         }
         if (
-            (userinput.children == "sinlge" && isNumberString(taxgroup.type) ) &&
+            (userinput.children == "single" && isNumberString(taxgroup.type) ) &&
             UserIncomeIsInGroup(userinput.income, parseInt(taxgroup.type, 10)) &&
             !found
         ) {
