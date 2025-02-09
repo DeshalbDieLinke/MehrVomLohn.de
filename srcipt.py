@@ -1,29 +1,21 @@
 input = """
--70679 -5767 -8892 -9833 21083 13248 20107
+-799 0 2203 102 11993 5840 19185
 """.replace("\n", "")
 
-
-
-
-# -2547 107 1179 -122 11543 5203 9067
-# 2189 1033 1360 867 6734 2587 5471
-# 3316 1474 1281 1055 2758 907 1064
-# 2378 1038 926 1140 1379 414 487
 groups = ["linke", "bsw", "spd", "gruene", "fdp", "cdu", "afd"]
 
 input = input.split(" ")
 
-group = 2000000
+group = 180000
 
 l = {
-    "type": str(group),
+    "type": "twochildren"+str(group),
 }
 
 
 for i, e in enumerate(input):
     print((int(e) / group) * 100)
     l[groups[i]] = [(int(e) / group) * 100, 0]
-
 
 
 

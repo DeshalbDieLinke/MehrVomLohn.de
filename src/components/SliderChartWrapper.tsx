@@ -43,7 +43,7 @@ function GetRecomendations(data: RechartsData[]): { party: string; status: Statu
 }
 
 export default function SliderChartWrapper() {
-    let [userdata, setUserdata] = useState({ income: 25000, children: "paar" });
+    let [userdata, setUserdata] = useState({ income: 25000, children: "single" });
 
     let data = CalcGraphData(taxdata.taxgroups, taxdata.colors, userdata);
     console.log(data);
@@ -91,41 +91,19 @@ function CalcGraphData(taxgroups: TaxGroup[], colors: any, userinput: any): Rech
 
     let found = false;
     taxgroups.forEach((taxgroup: TaxGroup) => {
-        if (userinput.children == "towchild" && !found && taxgroup.type.includes("twochildren")) {
-            let familyFourtyK = userinput.income <= 40000 && taxgroup.type == "twochildrenfourtyk";
-            let familySixtyK = userinput.income <= 60000 && taxgroup.type == "twochildrenfourtyk";
-            let familyEightyK = userinput.income <= 80000 && taxgroup.type == "twochildreneightk";
-            let familySemiRich = userinput.income <= 120000 && taxgroup.type == "twochildrenonetwentyk";
-            let familyRichRich =
-                (userinput.income <= 180000 && taxgroup.type == "twochildrenveryrich") ||
-                (userinput.income > 180000 && taxgroup.type == "twochildrenveryrich");
-            // console.log(familyFourtyK, familySixtyK, familyEightyK, familyRichRich);
-            //it needs to be exclusiv -> if else. fuck this. tomorrow prod.
-            if (familyFourtyK) {
-                console.log(taxgroup);
-                let res = PushTaxgroupToData(taxgroup, userinput, colors);
-                data = res[0];
-                found = res[1];
-            } else if (familySixtyK) {
-                let res = PushTaxgroupToData(taxgroup, userinput, colors);
-                data = res[0];
-                found = res[1];
-            } else if (familyEightyK) {
-                let res = PushTaxgroupToData(taxgroup, userinput, colors);
-                data = res[0];
-                found = res[1];
-            } else if (familySemiRich) {
-                let res = PushTaxgroupToData(taxgroup, userinput, colors);
-                data = res[0];
-                found = res[1];
-            } else if (familyRichRich) {
-                let res = PushTaxgroupToData(taxgroup, userinput, colors);
-                data = res[0];
-                found = res[1];
-            }
+        if (
+            userinput.children == "twochilden" &&
+            taxgroup.type.includes("twochildren") &&
+            UserIncomeIsInGroup(userinput.income, parseInt(taxgroup.type.replace("twochildren", ""), 10)) &&
+            !found
+        ) {
+            let res = PushTaxgroupToData(taxgroup, userinput, colors);
+            data = res[0];
+            found = res[1];
         }
         if (
-            (userinput.children == "single" && isNumberString(taxgroup.type) ) &&
+            userinput.children == "single" &&
+            isNumberString(taxgroup.type) &&
             UserIncomeIsInGroup(userinput.income, parseInt(taxgroup.type, 10)) &&
             !found
         ) {
@@ -134,7 +112,8 @@ function CalcGraphData(taxgroups: TaxGroup[], colors: any, userinput: any): Rech
             found = res[1];
         }
         if (
-            (userinput.children == "paar" && taxgroup.type.includes("paar")) &&
+            userinput.children == "paar" &&
+            taxgroup.type.includes("paar") &&
             UserIncomeIsInGroup(userinput.income, parseInt(taxgroup.type.replace("paar", ""), 10)) &&
             !found
         ) {
