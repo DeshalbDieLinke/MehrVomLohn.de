@@ -76,7 +76,7 @@ function PushTaxgroupToData(taxgroup: TaxGroup, userinput: any, colors: any): [R
     let data: RechartsData[] = [];
     for (const [key, value] of Object.entries(taxgroup)) {
         if (key !== "type") {
-            data.push({ name: key, value: value[0] * (userinput.income / 100), color: colors[key] });
+            data.push({ name: key, value: value[1], color: colors[key] });
         }
     }
     console.log(taxgroup);
