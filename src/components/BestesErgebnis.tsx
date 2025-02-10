@@ -18,7 +18,7 @@ export default function BestesErgebnis(props: { party: string }) {
             <div>
                 {party ? (
                     <div
-                        className={`flex flex-wrap justify-start items-center w-full p-10 text-white rounded-sm border-y-2 border-black drop-shadow-lg shadow-red-300 ${colors[party]}`}
+                        className={`flex flex-wrap justify-start items-center w-full p-10 text-white rounded-sm border-2 border-black drop-shadow-lg shadow-red-300 ${colors[party]}`}
                     >
                         <h1 className={`text-6xl flex flex-row mb-4 sm:mb-0 ${textColor}`}>Bestes Ergebnis:</h1>
                         <img
