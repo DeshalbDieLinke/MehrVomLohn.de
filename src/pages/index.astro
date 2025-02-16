@@ -14,11 +14,6 @@ const subpath = pathname.match(/[^\/]+/g);
 <html lang="en">
     <head>
         <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-        <meta property="og:image" content="/og-image.png" />
-        <meta property="og:image:width" content="2210" />
-        <meta property="og:image:height" content="1430" />
-        <meta property="twitter:image" content="/og-image.png" />
-        <meta property="twitter:card" content="summary_large_image" />
     </head>
     <body>
         <!-- <Header /> -->
@@ -27,10 +22,18 @@ const subpath = pathname.match(/[^\/]+/g);
             <section class="introdcution">
                 <Introdcution />
             </section>
-            <section id="MAIN" class="px-0 md:px-10 py-2 md:py-4 lg:py-8 max-w-screen-2xl mx-auto">
+            <section id="MAIN">
                 <SliderChartWrapper client:load />
             </section>
             <Footer />
         </main>
     </body>
 </html>
+<style> 
+	@media (min-width: 2000px) {
+        section {
+            padding-left: 20rem;
+            padding-right: 20rem;
+        }
+    }
+</style>
