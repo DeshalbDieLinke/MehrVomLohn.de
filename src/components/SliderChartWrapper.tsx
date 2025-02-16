@@ -56,7 +56,6 @@ export default function SliderChartWrapper() {
     // Updates the query params.
     useEffect(() => {
         if (userdata.income == -1) {
-            window.history.pushState({}, "", "/");
             return;
         }
         
@@ -69,18 +68,18 @@ export default function SliderChartWrapper() {
 
     // Initialize the user data from the query params.
     useEffect(() => {
+        if (window.location.search == "") {
+            return;
+        }
         let params = new URLSearchParams(window.location.search);
         let income = params.get("income");
         let status = params.get("status");
         let isPercentage: boolean = params.get("isPercentage") == "true";
+        
         if (income != null && status != null) {
-            try {
-                setUserdata({ income: parseInt(income), status: status as "single" | "paar" | "twochildren", isPercentage: isPercentage ?? false }); }
-            catch (e) {
-                console.log(e);
-                window.location.href = "/";
-            }
-        } else;{
+            setUserdata({ income: parseInt(income!), status: status as "single" | "paar" | "twochildren", isPercentage: isPercentage ?? false }); 
+        } else {
+            console.log("Invalid or no query params");
             setUserdata({ income: -1, status: "single", isPercentage: false });
         }
     }, []);
