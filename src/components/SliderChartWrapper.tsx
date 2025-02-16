@@ -2,7 +2,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import InputComponent from "../components/Input.tsx";
 import SteuernChart from "../components/SteuernChart.tsx";
 import type { RechartsData } from "../components/SteuernChart.tsx";
-import { useState, useRef} from "react";
+import { useState, useRef, useEffect} from "react";
 import taxdata from "../data/taxdata.json";
 import { CallToActionWrapper, Status } from "./CallToActionWrapper.tsx";
 import { FirstInput, type IncomeGroupsForInput } from "./FirstInput.tsx";
@@ -45,7 +45,14 @@ function GetRecomendations(data: RechartsData[]): { party: string; status: Statu
 }
 
 export default function SliderChartWrapper() {
-    let [userdata, setUserdata] = useState({ income: -1, children: "single", percentage_or_value: false });
+    let [userdata, setUserdata] = useState({ income: -1, status: "single", percentage_or_value: false });
+
+    useEffect(() => {
+        let params = new URLSearchParams(window.location.search);
+        params.set("income", userdata.income.toString());
+        params.set("status", userdata.status.toString());
+        window.history.pushState({}, "", "?"+ params.toString());
+    }, [userdata]);
 
     let data = CalcGraphData(taxdata.taxgroups, taxdata.colors, userdata);
     console.log(data);
@@ -64,7 +71,7 @@ export default function SliderChartWrapper() {
                     <TabsContent value="single" className={tabs.current?.value == "single" ? "bg-r-500" : ""}>
                         <FirstInput
                             setUserData={setUserdata}
-                            children="single"
+                            status="single"
                             input={[
                                 { value: 10000, label: "0€-10000€" },
                                 { value: 20000, label: "10001€-20000€" },
@@ -82,7 +89,7 @@ export default function SliderChartWrapper() {
                     <TabsContent value="paar">
                         <FirstInput
                             setUserData={setUserdata}
-                            children="paar"
+                            status="paar"
                             input={[
                                 { value: 40000, label: "40000€" },
                                 { value: 60000, label: "60000€" },
@@ -95,7 +102,7 @@ export default function SliderChartWrapper() {
                     <TabsContent value="twochildren">
                         <FirstInput
                             setUserData={setUserdata}
-                            children="twochildren"
+                            status="twochildren"
                             input={[
                                 { value: 40000, label: "40000€" },
                                 { value: 60000, label: "60000€" },
@@ -149,13 +156,13 @@ function PushTaxgroupToData(taxgroup: TaxGroup, userinput: any, colors: any): [R
 
 // TODO: fix types
 // TODO: add a proper algo. now everything only works if the data in taxdata.json is the the right order
-function CalcGraphData(taxgroups: TaxGroup[], colors: any, userinput: any): RechartsData[] {
+function CalcGraphData(taxgroups: TaxGroup[], colors: any, userinput: {income: number, status: string, percentage_or_value: boolean}): RechartsData[] {
     let data: RechartsData[] = [];
 
     let found = false;
     taxgroups.forEach((taxgroup: TaxGroup) => {
         if (
-            userinput.children == "twochildren" &&
+            userinput.status == "twochildren" &&
             taxgroup.type.includes("twochildren") &&
             UserIncomeIsInGroup(userinput.income, parseInt(taxgroup.type.replace("twochildren", ""), 10)) &&
             !found
@@ -165,7 +172,7 @@ function CalcGraphData(taxgroups: TaxGroup[], colors: any, userinput: any): Rech
             found = res[1];
         }
         if (
-            userinput.children == "single" &&
+            userinput.status == "single" &&
             isNumberString(taxgroup.type) &&
             UserIncomeIsInGroup(userinput.income, parseInt(taxgroup.type, 10)) &&
             !found
@@ -175,7 +182,7 @@ function CalcGraphData(taxgroups: TaxGroup[], colors: any, userinput: any): Rech
             found = res[1];
         }
         if (
-            userinput.children == "paar" &&
+            userinput.status == "paar" &&
             taxgroup.type.includes("paar") &&
             UserIncomeIsInGroup(userinput.income, parseInt(taxgroup.type.replace("paar", ""), 10)) &&
             !found

@@ -48,11 +48,11 @@ function CleanIncomeData(income: number, children: string): number {
 }
 
 export default function InputComponent(props: {
-    value: { income: number; children: string; percentage_or_value: boolean };
-    setValue: (value: { income: number; children: string; percentage_or_value: boolean }) => void;
+    value: { income: number; status: string; percentage_or_value: boolean };
+    setValue: (value: { income: number; status: string; percentage_or_value: boolean }) => void;
 }) {
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-        const value = CleanIncomeData(parseInt(event.target.value), props.value.children);
+        const value = CleanIncomeData(parseInt(event.target.value), props.value.status);
         console.log(value);
         props.setValue({ ...props.value, income: value });
     };
@@ -68,19 +68,23 @@ export default function InputComponent(props: {
                     <div className="w-full">
                         <Select
                             onValueChange={(e) => {
-                                const value = CleanIncomeData(parseInt(e), props.value.children);
+                                let params = new URLSearchParams(window.location.search);
+                                params.set("income", e);
+                                params.set("status", props.value.status);
+                                window.history.pushState({}, "", "?"+ params.toString());
+                                const value = CleanIncomeData(parseInt(e), props.value.status);
                                 props.setValue({
                                     ...props.value,
                                     income: value,
                                 });
                             }}
-                            value={CleanIncomeData(props.value.income, props.value.children).toString()}
+                            value={CleanIncomeData(props.value.income, props.value.status).toString()}
                         >
                             <SelectTrigger>
                                 <SelectValue />
                             </SelectTrigger>
                             <SelectContent>
-                                {props.value.children == "single" && (
+                                {props.value.status == "single" && (
                                     <>
                                         <SelectItem value="10000">0€-10000€</SelectItem>
                                         <SelectItem value="20000">10001€-20000€</SelectItem>
@@ -94,7 +98,7 @@ export default function InputComponent(props: {
                                         <SelectItem value="2000000">250001€-2000000€</SelectItem>
                                     </>
                                 )}
-                                {props.value.children != "single" && (
+                                {props.value.status != "single" && (
                                     <>
                                         <SelectItem value="40000">40000€</SelectItem>
                                         <SelectItem value="60000">60000€</SelectItem>
@@ -109,14 +113,18 @@ export default function InputComponent(props: {
                     <div className="w-full sm:w-[180px]">
                         <Select
                             onValueChange={(e) => {
+                                let params = new URLSearchParams(window.location.search);
+                                params.set("income", e);
+                                params.set("status", props.value.status);
+                                window.history.pushState({}, "", "?"+ params.toString());
                                 const value = CleanIncomeData(props.value.income, e);
                                 props.setValue({
                                     ...props.value,
                                     income: value,
-                                    children: e,
+                                    status: e,
                                 });
                             }}
-                            value={props.value.children}
+                            value={props.value.status}
                         >
                             <SelectTrigger>
                                 <SelectValue />
@@ -128,7 +136,7 @@ export default function InputComponent(props: {
                             </SelectContent>
                         </Select>
                     </div>
-                    {props.value.children == "single" && (
+                    {props.value.status == "single" && (
                         <div className="flex items-center space-x-2">
                             <Checkbox
                                 id="airplane-mode"

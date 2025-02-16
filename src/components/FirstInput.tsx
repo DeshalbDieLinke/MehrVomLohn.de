@@ -1,5 +1,6 @@
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { navigate } from "astro/virtual-modules/transitions-router.js";
 
 export interface IncomeGroupsForInput {
     value: number;
@@ -8,8 +9,8 @@ export interface IncomeGroupsForInput {
 
 export function FirstInput(props: {
     input: IncomeGroupsForInput[];
-    children: string;
-    setUserData: (value: { income: number; children: string; percentage_or_value: boolean }) => void;
+    status: string;
+    setUserData: (value: { income: number; status: string; percentage_or_value: boolean }) => void;
 }) {
     return (
         <RadioGroup
@@ -20,8 +21,8 @@ export function FirstInput(props: {
             dir="ltr"
             role="radiogroup"
             onValueChange={(e: any) => {
+                props.setUserData({ income: e, status: props.status, percentage_or_value: false });
                 console.log("onchange called", e);
-                props.setUserData({ income: e, children: props.children, percentage_or_value: false });
             }}
         >
             {props.input.map((item, i) => (
