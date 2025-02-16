@@ -4,9 +4,7 @@ import { type RechartsData } from "./SteuernChart";
 export default function ArmutsChartWrapper(props: { data: RechartsData[]; output: { party: string } }) {
     return (
         <div className="pt-3">
-            <p className="">
-                <b>Die Linke senkt das Arumtsrisiko am stärksten von Allen Partein:</b>
-            </p>
+            <b>Die Linke senkt das Arumtsrisiko am stärksten von Allen Partein:</b>
             {props.output.party == "afd" && (
                 <p>
                     <b>Die AfD</b> hingegen würde die Armutsrisikoqoute um <b>12.9%</b> erhöhen.{" "}

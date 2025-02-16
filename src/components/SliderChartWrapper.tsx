@@ -1,9 +1,11 @@
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import InputComponent from "../components/Input.tsx";
 import SteuernChart from "../components/SteuernChart.tsx";
 import type { RechartsData } from "../components/SteuernChart.tsx";
 import { useState } from "react";
 import taxdata from "../data/taxdata.json";
 import { CallToActionWrapper, Status } from "./CallToActionWrapper.tsx";
+import { FirstInput, type IncomeGroupsForInput } from "./FirstInput.tsx";
 
 export interface TaxGroup {
     type: string;
@@ -43,7 +45,12 @@ function GetRecomendations(data: RechartsData[]): { party: string; status: Statu
 }
 
 export default function SliderChartWrapper() {
-    let [userdata, setUserdata] = useState({ income: 25000, children: "single" });
+    let [userdata, setUserdata] = useState({ income: -1, children: "single" });
+
+    const handle = (value: number) => {
+        console.log(value);
+        setUserdata({ income: value, children: userdata.children });
+    };
 
     let data = CalcGraphData(taxdata.taxgroups, taxdata.colors, userdata);
     console.log(data);
@@ -52,13 +59,70 @@ export default function SliderChartWrapper() {
 
     return (
         <>
-            <InputComponent value={userdata} setValue={setUserdata} />
-            <div>
-                <SteuernChart data={data} />
-            </div>
-            <div>
-                <CallToActionWrapper output={recom} />
-            </div>
+            {userdata.income == -1 && (
+                <Tabs defaultValue="single" className="w-full">
+                    <TabsList className="flex justify-center">
+                        <TabsTrigger value="single">Singe</TabsTrigger>
+                        <TabsTrigger value="paar">Paar</TabsTrigger>
+                        <TabsTrigger value="twochildren">Paar mit zwei Kindern</TabsTrigger>
+                    </TabsList>
+                    <TabsContent value="single">
+                        <FirstInput
+                            setUserData={setUserdata}
+                            children="single"
+                            input={[
+                                { value: 10000, label: "0€-10000€" },
+                                { value: 20000, label: "10001€-20000€" },
+                                { value: 30000, label: "20001€-30000€" },
+                                { value: 40000, label: "30001€-40000€" },
+                                { value: 55000, label: "40001€-55000€" },
+                                { value: 80000, label: "55001€-80000€" },
+                                { value: 100000, label: "80001€-100000€" },
+                                { value: 150000, label: "100001€-150000€" },
+                                { value: 250000, label: "150001€-250000€" },
+                                { value: 2000000, label: "250001€-2000000€" },
+                            ]}
+                        />
+                    </TabsContent>
+                    <TabsContent value="paar">
+                        <FirstInput
+                            setUserData={setUserdata}
+                            children="paar"
+                            input={[
+                                { value: 40000, label: "40000€" },
+                                { value: 60000, label: "60000€" },
+                                { value: 80000, label: "80000€" },
+                                { value: 120000, label: "120000€" },
+                                { value: 180000, label: "180000€" },
+                            ]}
+                        />
+                    </TabsContent>
+                    <TabsContent value="twochildren">
+                        <FirstInput
+                            setUserData={setUserdata}
+                            children="twochildren"
+                            input={[
+                                { value: 40000, label: "40000€" },
+                                { value: 60000, label: "60000€" },
+                                { value: 80000, label: "80000€" },
+                                { value: 120000, label: "120000€" },
+                                { value: 180000, label: "180000€" },
+                            ]}
+                        />
+                    </TabsContent>
+                </Tabs>
+            )}
+            {userdata.income != -1 && (
+                <>
+                    <InputComponent value={userdata} setValue={setUserdata} />
+                    <div>
+                        <SteuernChart data={data} />
+                    </div>
+                    <div>
+                        <CallToActionWrapper output={recom} />
+                    </div>
+                </>
+            )}
         </>
     );
 }
@@ -92,7 +156,7 @@ function CalcGraphData(taxgroups: TaxGroup[], colors: any, userinput: any): Rech
     let found = false;
     taxgroups.forEach((taxgroup: TaxGroup) => {
         if (
-            userinput.children == "twochilden" &&
+            userinput.children == "twochildren" &&
             taxgroup.type.includes("twochildren") &&
             UserIncomeIsInGroup(userinput.income, parseInt(taxgroup.type.replace("twochildren", ""), 10)) &&
             !found

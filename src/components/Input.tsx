@@ -5,7 +5,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 function CleanIncomeData(income: number, children: string): number {
     let value = income;
     console.log(children);
-    if (children == "twochilden" || children == "paar") {
+    if (children == "twochildren" || children == "paar") {
         if (value <= 40000) {
             value = 40000;
         } else if (value <= 60000) {
@@ -117,12 +117,16 @@ export default function InputComponent(props: {
                             <SelectContent>
                                 <SelectItem value="paar">Paar</SelectItem>
                                 <SelectItem value="single">Single</SelectItem>
-                                <SelectItem value="twochilden">Ehepaar mit 2 Kindern (Haushaltseinkommen)</SelectItem>
+                                <SelectItem value="twochildren">Ehepaar mit 2 Kindern (Haushaltseinkommen)</SelectItem>
                             </SelectContent>
                         </Select>
                     </div>
                 </div>
-                <input type="range" min={0} max={80000} className="range" value={props.value.income} onChange={handleChange} />
+                <div className="slider-container py-0">
+                    {props.value.children == "single" &&
+                    <input type="range" min={0} max={80000} className="range" value={props.value.income} onChange={handleChange} />
+                    }
+                </div>
             </div>
         </>
     );

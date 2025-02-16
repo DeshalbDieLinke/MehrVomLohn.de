@@ -34,7 +34,7 @@ const SteuernChart = (props: { data: RechartsData[] }) => {
                     </XAxis>
                     <YAxis />
                     <Tooltip content={<ChartTooltip />} />
-                    <Bar isAnimationActive={false} dataKey="value">
+                    <Bar dataKey="value" radius={[5, 5, 0, 0]}>
                         {props.data.map((entry, index) => (
                             <Cell key={`cell-${index}`} fill={entry.color} />
                         ))}

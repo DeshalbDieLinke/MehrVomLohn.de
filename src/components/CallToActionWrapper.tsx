@@ -30,6 +30,7 @@ export function CallToActionWrapper(props: {
                             <b>So stark entlastet dich keine andere Partei!</b>
                         </p>
                         <p>Hinzu kommen weitere Vergünstigungen und Angebote, die in die Berechnung des ZEW nicht einfließen:</p>
+                        <ArmutsChartWrapper data={armutsdata} output={props.output} />
                         <ListeDieLinke />
                     </div>
                 )}

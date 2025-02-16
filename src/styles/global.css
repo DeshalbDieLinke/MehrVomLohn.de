@@ -208,6 +208,35 @@ hr {
 
 	
 	}
-
-	
 }
+
+.slider-container {
+  position: relative;
+  width: 100%;
+  padding: 20px 0;
+}
+
+.range {
+  width: 100%;
+}
+
+.step-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.step-labels span {
+  position: relative;
+  text-align: center;
+}
+
+.step-labels span::before {
+  content: '|';
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+

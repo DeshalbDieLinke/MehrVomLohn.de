@@ -1,7 +1,6 @@
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Cell, LabelList, Label } from "recharts";
 import { type RechartsData } from "./SteuernChart.tsx";
 
-
 function ChartTooltip({ payload, active, label }: any) {
     if (active && payload && payload.length) {
         return (
@@ -17,7 +16,7 @@ function ChartTooltip({ payload, active, label }: any) {
 
 export default function ArmutsChart(props: { data: RechartsData[] }) {
     return (
-        <ResponsiveContainer width="100%" height={450}>
+        <ResponsiveContainer width="100%" height={490}>
             <BarChart data={props.data}>
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="name" tick={false}>
@@ -26,8 +25,8 @@ export default function ArmutsChart(props: { data: RechartsData[] }) {
                 <YAxis>
                     <Label value="Veränderung der Armutsrisikoquote" offset={10} position="insideBottomLeft" angle={-90} />
                 </YAxis>
-                <Tooltip content={<ChartTooltip />}/>
-                <Bar isAnimationActive={false} dataKey="value">
+                <Tooltip content={<ChartTooltip />} />
+                <Bar isAnimationActive={true} dataKey="value" radius={[10, 10, 0, 0]}>
                     {props.data.map((entry, index) => (
                         <Cell key={`cell-${index}`} fill={entry.color} />
                     ))}
