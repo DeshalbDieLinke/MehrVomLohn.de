@@ -121,7 +121,7 @@ export default function SliderChartWrapper() {
                         <SteuernChart data={data} percentage_or_value={userdata.percentage_or_value} />
                     </div>
                     <div>
-                        <CallToActionWrapper output={recom} />
+                        <CallToActionWrapper output={recom} percentage_or_value={userdata.percentage_or_value} />
                     </div>
                 </div>
             )}
