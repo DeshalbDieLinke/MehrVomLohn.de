@@ -6,7 +6,11 @@ export interface IncomeGroupsForInput {
     label: string;
 }
 
-export function FirstInput(props: { input: IncomeGroupsForInput[]; children: string; setUserData: (value: { income: number; children: string }) => void }) {
+export function FirstInput(props: {
+    input: IncomeGroupsForInput[];
+    children: string;
+    setUserData: (value: { income: number; children: string; percentage_or_value: boolean }) => void;
+}) {
     return (
         <RadioGroup
             style={{ outline: "none" }}
@@ -17,7 +21,7 @@ export function FirstInput(props: { input: IncomeGroupsForInput[]; children: str
             role="radiogroup"
             onValueChange={(e: any) => {
                 console.log("onchange called", e);
-                props.setUserData({ income: e, children: props.children });
+                props.setUserData({ income: e, children: props.children, percentage_or_value: false });
             }}
         >
             {props.input.map((item, i) => (

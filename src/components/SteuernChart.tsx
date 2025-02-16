@@ -7,20 +7,30 @@ export interface RechartsData {
     color: string;
 }
 
-export function ChartTooltip({ payload, active, label }: any) {
-    if (active && payload && payload.length) {
-        return (
-            <div className="bg-white p-4 shadow-md">
-                <p className="text-lg p-0 m-0">{`Partei: ${label.toUpperCase()}`}</p>
-                <p className="text-lg p-0 m-0">{`Ersparnisse: ${payload[0].value}€`}</p>
-            </div>
-        );
-    }
 
-    return null;
-}
+const SteuernChart = (props: { data: RechartsData[]; percentage_or_value: boolean }) => {
+    const ChartTooltip = ({ payload, active, label }: any) => {
+        if (active && payload && payload.length) {
+            if (props.percentage_or_value) {
+                return (
+                    <div className="bg-white p-4 shadow-md">
+                        <p className="text-lg p-0 m-0">{`Partei: ${label.toUpperCase()}`}</p>
+                        <p className="text-lg p-0 m-0">{`Ersparnisse: ${payload[0].value}%`}</p>
+                    </div>
+                );
+            } else {
+                return (
+                    <div className="bg-white p-4 shadow-md">
+                        <p className="text-lg p-0 m-0">{`Partei: ${label.toUpperCase()}`}</p>
+                        <p className="text-lg p-0 m-0">{`Ersparnisse: ${payload[0].value}€`}</p>
+                    </div>
+                );
+            }
+        }
 
-const SteuernChart = (props: { data: RechartsData[] }) => {
+        return null;
+    };
+
     return (
         <div className="relative">
             <span className="absolute text-base -rotate-90 -left-[170px] top-1/2 -translate-y-full">

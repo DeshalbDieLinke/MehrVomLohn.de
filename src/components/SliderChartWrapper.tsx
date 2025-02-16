@@ -45,12 +45,7 @@ function GetRecomendations(data: RechartsData[]): { party: string; status: Statu
 }
 
 export default function SliderChartWrapper() {
-    let [userdata, setUserdata] = useState({ income: -1, children: "single" });
-
-    const handle = (value: number) => {
-        console.log(value);
-        setUserdata({ income: value, children: userdata.children });
-    };
+    let [userdata, setUserdata] = useState({ income: -1, children: "single", percentage_or_value: false });
 
     let data = CalcGraphData(taxdata.taxgroups, taxdata.colors, userdata);
     console.log(data);
@@ -116,7 +111,7 @@ export default function SliderChartWrapper() {
                 <>
                     <InputComponent value={userdata} setValue={setUserdata} />
                     <div>
-                        <SteuernChart data={data} />
+                        <SteuernChart data={data} percentage_or_value={userdata.percentage_or_value} />
                     </div>
                     <div>
                         <CallToActionWrapper output={recom} />
@@ -140,7 +135,11 @@ function PushTaxgroupToData(taxgroup: TaxGroup, userinput: any, colors: any): [R
     let data: RechartsData[] = [];
     for (const [key, value] of Object.entries(taxgroup)) {
         if (key !== "type") {
-            data.push({ name: key, value: value[1], color: colors[key] });
+            let push_value = value[1];
+            if (userinput.percentage_or_value && userinput.children == "single") {
+                push_value = value[0];
+            }
+            data.push({ name: key, value: push_value, color: colors[key] });
         }
     }
     console.log(taxgroup);
@@ -187,8 +186,8 @@ function CalcGraphData(taxgroups: TaxGroup[], colors: any, userinput: any): Rech
         }
     });
 
-    data.forEach((entry) => {
-        entry.value = Math.round(entry.value);
-    });
+    // data.forEach((entry) => {
+    //     entry.value = Math.round(entry.value);
+    // });
     return data;
 }

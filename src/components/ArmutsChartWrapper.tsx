@@ -16,7 +16,7 @@ export default function ArmutsChartWrapper(props: { data: RechartsData[]; output
                     <b>Die FDP</b> hingegen würde die Armutsrisikoqoute um <b>11%</b> erhöhen.{" "}
                 </p>
             )}
-            <div className="flex justify-center px-7">
+            <div className="flex justify-center lg:px-7">
                 <ArmutsChart data={props.data} />
             </div>
         </div>

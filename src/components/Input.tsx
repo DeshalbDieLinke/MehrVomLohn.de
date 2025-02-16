@@ -1,5 +1,8 @@
 import { Input } from "./ui/input.tsx";
 import { useState, type ChangeEvent } from "react";
+import { Switch } from "@/components/ui/switch";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 function CleanIncomeData(income: number, children: string): number {
@@ -45,11 +48,12 @@ function CleanIncomeData(income: number, children: string): number {
 }
 
 export default function InputComponent(props: {
-    value: { income: number; children: string };
-    setValue: (value: { income: number; children: string }) => void;
+    value: { income: number; children: string; percentage_or_value: boolean };
+    setValue: (value: { income: number; children: string; percentage_or_value: boolean }) => void;
 }) {
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         const value = CleanIncomeData(parseInt(event.target.value), props.value.children);
+        console.log(value);
         props.setValue({ ...props.value, income: value });
     };
 
@@ -64,9 +68,10 @@ export default function InputComponent(props: {
                     <div className="w-full">
                         <Select
                             onValueChange={(e) => {
+                                const value = CleanIncomeData(parseInt(e), props.value.children);
                                 props.setValue({
                                     ...props.value,
-                                    income: parseInt(e),
+                                    income: value,
                                 });
                             }}
                             value={CleanIncomeData(props.value.income, props.value.children).toString()}
@@ -104,8 +109,10 @@ export default function InputComponent(props: {
                     <div className="w-full sm:w-[180px]">
                         <Select
                             onValueChange={(e) => {
+                                const value = CleanIncomeData(props.value.income, e);
                                 props.setValue({
                                     ...props.value,
+                                    income: value,
                                     children: e,
                                 });
                             }}
@@ -121,11 +128,24 @@ export default function InputComponent(props: {
                             </SelectContent>
                         </Select>
                     </div>
+                    {props.value.children == "single" && (
+                        <div className="flex items-center space-x-2">
+                            <Checkbox
+                                id="airplane-mode"
+                                checked={props.value.percentage_or_value}
+                                onCheckedChange={() => {
+                                    props.setValue({ ...props.value, percentage_or_value: !props.value.percentage_or_value });
+                                }}
+                            />
+                            <Label htmlFor="airplane-mode">Daten in Prozent</Label>
+                        </div>
+                    )}
                 </div>
+
                 <div className="slider-container py-0">
-                    {props.value.children == "single" &&
-                    <input type="range" min={0} max={80000} className="range" value={props.value.income} onChange={handleChange} />
-                    }
+                    {props.value.children == "single" && (
+                        <input type="range" min={0} max={80000} className="range" value={props.value.income} onChange={handleChange} />
+                    )}
                 </div>
             </div>
         </>
