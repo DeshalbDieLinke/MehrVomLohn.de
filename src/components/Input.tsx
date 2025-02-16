@@ -68,10 +68,6 @@ export default function InputComponent(props: {
                     <div className="w-full">
                         <Select
                             onValueChange={(e) => {
-                                let params = new URLSearchParams(window.location.search);
-                                params.set("income", e);
-                                params.set("status", props.value.status);
-                                window.history.pushState({}, "", "?"+ params.toString());
                                 const value = CleanIncomeData(parseInt(e), props.value.status);
                                 props.setValue({
                                     ...props.value,
@@ -113,10 +109,6 @@ export default function InputComponent(props: {
                     <div className="w-full sm:w-[180px]">
                         <Select
                             onValueChange={(e) => {
-                                let params = new URLSearchParams(window.location.search);
-                                params.set("income", e);
-                                params.set("status", props.value.status);
-                                window.history.pushState({}, "", "?"+ params.toString());
                                 const value = CleanIncomeData(props.value.income, e);
                                 props.setValue({
                                     ...props.value,

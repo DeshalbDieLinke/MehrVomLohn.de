@@ -47,12 +47,27 @@ function GetRecomendations(data: RechartsData[]): { party: string; status: Statu
 export default function SliderChartWrapper() {
     let [userdata, setUserdata] = useState({ income: -1, status: "single", percentage_or_value: false });
 
+    // Updates the query params.
     useEffect(() => {
+        if (userdata.income == -1) {
+            return;
+        }
+        console.log("userdata:" + userdata);
         let params = new URLSearchParams(window.location.search);
         params.set("income", userdata.income.toString());
         params.set("status", userdata.status.toString());
         window.history.pushState({}, "", "?"+ params.toString());
     }, [userdata]);
+
+    // Initialize the user data from the query params.
+    useEffect(() => {
+        let params = new URLSearchParams(window.location.search);
+        let income = params.get("income");
+        let status = params.get("status");
+        if (income != null && status != null) {
+            setUserdata({ income: parseInt(income), status: status, percentage_or_value: false });
+        }
+    }, []);
 
     let data = CalcGraphData(taxdata.taxgroups, taxdata.colors, userdata);
     console.log(data);

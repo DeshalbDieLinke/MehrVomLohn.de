@@ -36,7 +36,7 @@ const SteuernChart = (props: { data: RechartsData[]; percentage_or_value: boolea
             <span className="absolute text-base -rotate-90 -left-[170px] top-1/2 -translate-y-full">
                 Veränderung des verfügbaren Einkommen in {props.percentage_or_value ? "%" : "€"}
             </span>
-            <ResponsiveContainer width="100%" height={600} className="pl-2 mb-10">
+            <ResponsiveContainer width="100%" height={600} className="pl-2 md:pl-4 mb-10">
                 <BarChart data={props.data}>
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis dataKey="name" tick={false}>
