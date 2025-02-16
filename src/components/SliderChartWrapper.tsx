@@ -2,7 +2,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import InputComponent from "../components/Input.tsx";
 import SteuernChart from "../components/SteuernChart.tsx";
 import type { RechartsData } from "../components/SteuernChart.tsx";
-import { useState } from "react";
+import { useState, useRef} from "react";
 import taxdata from "../data/taxdata.json";
 import { CallToActionWrapper, Status } from "./CallToActionWrapper.tsx";
 import { FirstInput, type IncomeGroupsForInput } from "./FirstInput.tsx";
@@ -51,17 +51,17 @@ export default function SliderChartWrapper() {
     console.log(data);
     let recom = GetRecomendations(data);
     // console.log(recom);
-
+    const tabs = useRef<HTMLInputElement | null>(null)
     return (
         <>
             {userdata.income == -1 && (
-                <Tabs defaultValue="single" className="w-full">
+                <Tabs ref={tabs} defaultValue="single" className="w-full">
                     <TabsList className="flex justify-center">
                         <TabsTrigger value="single">Singe</TabsTrigger>
                         <TabsTrigger value="paar">Paar</TabsTrigger>
                         <TabsTrigger value="twochildren">Paar mit zwei Kindern</TabsTrigger>
                     </TabsList>
-                    <TabsContent value="single">
+                    <TabsContent value="single" className={tabs.current?.value == "single" ? "bg-r-500" : ""}>
                         <FirstInput
                             setUserData={setUserdata}
                             children="single"
@@ -108,15 +108,15 @@ export default function SliderChartWrapper() {
                 </Tabs>
             )}
             {userdata.income != -1 && (
-                <>
+                <div className="md:p-4" id="result">
                     <InputComponent value={userdata} setValue={setUserdata} />
-                    <div>
+                    <div >
                         <SteuernChart data={data} percentage_or_value={userdata.percentage_or_value} />
                     </div>
                     <div>
                         <CallToActionWrapper output={recom} />
                     </div>
-                </>
+                </div>
             )}
         </>
     );

@@ -50,7 +50,7 @@ h3,
 h4,
 h5,
 h6 {
-	font-family: "work sans";
+	font-family: "inter";
 	font-weight: bolder;
 	margin: 0 0 0.5rem 0;
 	color: rgb(var(--black));

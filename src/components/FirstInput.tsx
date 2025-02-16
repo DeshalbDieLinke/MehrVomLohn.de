@@ -14,7 +14,7 @@ export function FirstInput(props: {
     return (
         <RadioGroup
             style={{ outline: "none" }}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-1 sm:gap-2"
+            className={"grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 p-4 rounded-sm sm:gap-8 bg-gray-200"}
             tabIndex={0}
             aria-required="false"
             dir="ltr"
@@ -25,19 +25,16 @@ export function FirstInput(props: {
             }}
         >
             {props.input.map((item, i) => (
-                <div className="flex items-center border-gray-500" key={i}>
                     <Label
-                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 group relative p-4 sm:p-5 rounded-lg border-2 block cursor-pointer border-gray-200 hover:border-gray-200 transition-colors"
-                        htmlFor={item.value}
-                    >
-                        <RadioGroupItem
-                            className="aspect-square h-4 w-4 rounded-full border border-primary text-primary shadow focus:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 absolute left-4 top-4 sm:left-5 sm:top-5"
-                            value={item.value}
-                            id={item.value}
-                        />
-                        <div className="pl-8 sm:pl-9">{item.label}</div>
+                        key={i}
+                        className="group relative p-4 sm:p-5 rounded-lg border-2 block cursor-pointer border-black hover:border-black hover:bg-gray-300 transition-colors grow"
+                        htmlFor={item.value.toString()}
+                    >   
+                        <RadioGroupItem className="absolute left-4 top-4 sm:left-5 sm:top-5" value={item.value.toString()} id={item.value.toString()} />
+                        <div className="pl-8 sm:pl-9">
+                            <div className="font-medium">{item.label}</div>
+                        </div>
                     </Label>
-                </div>
             ))}
         </RadioGroup>
     );

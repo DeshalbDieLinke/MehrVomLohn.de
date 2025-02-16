@@ -142,11 +142,11 @@ export default function InputComponent(props: {
                     )}
                 </div>
 
-                <div className="slider-container py-0">
+                {/* <div className="slider-container py-0">
                     {props.value.children == "single" && (
                         <input type="range" min={0} max={80000} className="range" value={props.value.income} onChange={handleChange} />
                     )}
-                </div>
+                </div> */}
             </div>
         </>
     );
