@@ -34,7 +34,7 @@ const SteuernChart = (props: { data: RechartsData[]; percentage_or_value: boolea
     return (
         <div className="relative">
             <span className="absolute text-base -rotate-90 -left-[170px] top-1/2 -translate-y-full">
-                Veränderung des verfügbaren Einkommen in €
+                Veränderung des verfügbaren Einkommen in {props.percentage_or_value ? "%" : "€"}
             </span>
             <ResponsiveContainer width="100%" height={600} className="pl-2 mb-10">
                 <BarChart data={props.data}>
