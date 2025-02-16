@@ -1,16 +1,15 @@
 const colors: { [key: string]: string } = {
     linke: "bg-red-500",
-    spd: "#eb001f",
-    gruene: "#64a12d",
-    fdp: "bg-yellow-400",
+    spd: "#808080",
+    gruene: "#808080",
+    fdp: "#808080",
     cdu: "#000000",
-    afd: "bg-blue-200",
-    bsw: "#ff8200",
+    afd: "#808080",
+    bsw: "#808080",
 };
 
 export default function BestesErgebnis(props: { party: string }) {
     const party = props.party;
-
     const textColor = party === "fdp" || "afd " ? "text-black" : "text-white";
 
     return (
@@ -19,7 +18,7 @@ export default function BestesErgebnis(props: { party: string }) {
             <div>
                 {party ? (
                     <div
-                        className={`flex flex-wrap justify-start items-center w-full p-10 text-white rounded-sm border-y-2 border-black drop-shadow-lg shadow-red-300 ${colors[party]}`}
+                        className={`flex flex-wrap justify-start items-center w-full p-10 text-white rounded-sm border-2 border-black drop-shadow-lg shadow-red-300 ${colors[party]}`}
                     >
                         <h1 className={`text-6xl flex flex-row mb-4 sm:mb-0 ${textColor}`}>Bestes Ergebnis:</h1>
                         <img

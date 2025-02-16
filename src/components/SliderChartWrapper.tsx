@@ -1,9 +1,11 @@
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import InputComponent from "../components/Input.tsx";
 import SteuernChart from "../components/SteuernChart.tsx";
 import type { RechartsData } from "../components/SteuernChart.tsx";
-import { useState } from "react";
+import { useState, useRef} from "react";
 import taxdata from "../data/taxdata.json";
 import { CallToActionWrapper, Status } from "./CallToActionWrapper.tsx";
+import { FirstInput, type IncomeGroupsForInput } from "./FirstInput.tsx";
 
 export interface TaxGroup {
     type: string;
@@ -43,21 +45,79 @@ function GetRecomendations(data: RechartsData[]): { party: string; status: Statu
 }
 
 export default function SliderChartWrapper() {
-    let [userdata, setUserdata] = useState({ income: 25000, children: false });
+    let [userdata, setUserdata] = useState({ income: -1, children: "single", percentage_or_value: false });
 
     let data = CalcGraphData(taxdata.taxgroups, taxdata.colors, userdata);
+    console.log(data);
     let recom = GetRecomendations(data);
     // console.log(recom);
-
+    const tabs = useRef<HTMLInputElement | null>(null)
     return (
         <>
-            <InputComponent value={userdata} setValue={setUserdata} />
-            <div className="sd:p-8 p-4">
-                <SteuernChart data={data} />
-            </div>
-            <div className="">
-                <CallToActionWrapper output={recom} />
-            </div>
+            {userdata.income == -1 && (
+                <Tabs ref={tabs} defaultValue="single" className="w-full">
+                    <TabsList className="flex justify-center">
+                        <TabsTrigger value="single">Singe</TabsTrigger>
+                        <TabsTrigger value="paar">Paar</TabsTrigger>
+                        <TabsTrigger value="twochildren">Paar mit zwei Kindern</TabsTrigger>
+                    </TabsList>
+                    <TabsContent value="single" className={tabs.current?.value == "single" ? "bg-r-500" : ""}>
+                        <FirstInput
+                            setUserData={setUserdata}
+                            children="single"
+                            input={[
+                                { value: 10000, label: "0€-10000€" },
+                                { value: 20000, label: "10001€-20000€" },
+                                { value: 30000, label: "20001€-30000€" },
+                                { value: 40000, label: "30001€-40000€" },
+                                { value: 55000, label: "40001€-55000€" },
+                                { value: 80000, label: "55001€-80000€" },
+                                { value: 100000, label: "80001€-100000€" },
+                                { value: 150000, label: "100001€-150000€" },
+                                { value: 250000, label: "150001€-250000€" },
+                                { value: 2000000, label: "250001€-2000000€" },
+                            ]}
+                        />
+                    </TabsContent>
+                    <TabsContent value="paar">
+                        <FirstInput
+                            setUserData={setUserdata}
+                            children="paar"
+                            input={[
+                                { value: 40000, label: "40000€" },
+                                { value: 60000, label: "60000€" },
+                                { value: 80000, label: "80000€" },
+                                { value: 120000, label: "120000€" },
+                                { value: 180000, label: "180000€" },
+                            ]}
+                        />
+                    </TabsContent>
+                    <TabsContent value="twochildren">
+                        <FirstInput
+                            setUserData={setUserdata}
+                            children="twochildren"
+                            input={[
+                                { value: 40000, label: "40000€" },
+                                { value: 60000, label: "60000€" },
+                                { value: 80000, label: "80000€" },
+                                { value: 120000, label: "120000€" },
+                                { value: 180000, label: "180000€" },
+                            ]}
+                        />
+                    </TabsContent>
+                </Tabs>
+            )}
+            {userdata.income != -1 && (
+                <div className="md:p-4" id="result">
+                    <InputComponent value={userdata} setValue={setUserdata} />
+                    <div >
+                        <SteuernChart data={data} percentage_or_value={userdata.percentage_or_value} />
+                    </div>
+                    <div>
+                        <CallToActionWrapper output={recom} />
+                    </div>
+                </div>
+            )}
         </>
     );
 }
@@ -75,10 +135,15 @@ function PushTaxgroupToData(taxgroup: TaxGroup, userinput: any, colors: any): [R
     let data: RechartsData[] = [];
     for (const [key, value] of Object.entries(taxgroup)) {
         if (key !== "type") {
-            data.push({ name: key, value: value[0] * (userinput.income / 100), color: colors[key] });
+            let push_value = value[1];
+            if (userinput.percentage_or_value && userinput.children == "single") {
+                push_value = value[0];
+            }
+            data.push({ name: key, value: push_value, color: colors[key] });
         }
     }
     console.log(taxgroup);
+    console.log(data);
     return [data, true];
 }
 
@@ -89,39 +154,18 @@ function CalcGraphData(taxgroups: TaxGroup[], colors: any, userinput: any): Rech
 
     let found = false;
     taxgroups.forEach((taxgroup: TaxGroup) => {
-        if (userinput.children && !found && !isNumberString(taxgroup.type)) {
-            let familyFourtyK = userinput.income <= 40000 && taxgroup.type == "twochildrenfourtyk";
-            let familySixtyK = userinput.income <= 60000 && taxgroup.type == "twochildrenfourtyk";
-            let familyEightyK = userinput.income <= 80000 && taxgroup.type == "twochildreneightk";
-            let familySemiRich = userinput.income <= 120000 && taxgroup.type == "twochildrenonetwentyk";
-            let familyRichRich = userinput.income <= 180000 && taxgroup.type == "twochildrenveryrich" || userinput.income > 180000 && taxgroup.type == "twochildrenveryrich";
-            // console.log(familyFourtyK, familySixtyK, familyEightyK, familyRichRich);
-            //it needs to be exclusiv -> if else. fuck this. tomorrow prod.
-            if (familyFourtyK) {
-                console.log(taxgroup);
-                let res = PushTaxgroupToData(taxgroup, userinput, colors);
-                data = res[0];
-                found = res[1];
-            } else if (familySixtyK) {
-                let res = PushTaxgroupToData(taxgroup, userinput, colors);
-                data = res[0];
-                found = res[1];
-            } else if (familyEightyK) {
-                let res = PushTaxgroupToData(taxgroup, userinput, colors);
-                data = res[0];
-                found = res[1];
-            } else if (familySemiRich) {
-                let res = PushTaxgroupToData(taxgroup, userinput, colors);
-                data = res[0];
-                found = res[1];
-            } else if (familyRichRich) {
-                let res = PushTaxgroupToData(taxgroup, userinput, colors);
-                data = res[0];
-                found = res[1];
-            }
+        if (
+            userinput.children == "twochildren" &&
+            taxgroup.type.includes("twochildren") &&
+            UserIncomeIsInGroup(userinput.income, parseInt(taxgroup.type.replace("twochildren", ""), 10)) &&
+            !found
+        ) {
+            let res = PushTaxgroupToData(taxgroup, userinput, colors);
+            data = res[0];
+            found = res[1];
         }
         if (
-            !userinput.children &&
+            userinput.children == "single" &&
             isNumberString(taxgroup.type) &&
             UserIncomeIsInGroup(userinput.income, parseInt(taxgroup.type, 10)) &&
             !found
@@ -130,10 +174,20 @@ function CalcGraphData(taxgroups: TaxGroup[], colors: any, userinput: any): Rech
             data = res[0];
             found = res[1];
         }
+        if (
+            userinput.children == "paar" &&
+            taxgroup.type.includes("paar") &&
+            UserIncomeIsInGroup(userinput.income, parseInt(taxgroup.type.replace("paar", ""), 10)) &&
+            !found
+        ) {
+            let res = PushTaxgroupToData(taxgroup, userinput, colors);
+            data = res[0];
+            found = res[1];
+        }
     });
 
-    data.forEach((entry) => {
-        entry.value = Math.round(entry.value);
-    });
+    // data.forEach((entry) => {
+    //     entry.value = Math.round(entry.value);
+    // });
     return data;
 }

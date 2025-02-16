@@ -1,7 +1,10 @@
+import ArmutsChart from "./ArmutsChart";
 import BestesErgebnis from "./BestesErgebnis";
 import Callout from "./Callout";
 import ListeDieLinke from "./ListeDieLinke";
 // import PartyLinks from "./PartyLinks.tsx";
+import armutsdata from "../data/armutsdata.json";
+import ArmutsChartWrapper from "./ArmutsChartWrapper";
 
 export enum Status {
     "linke",
@@ -27,6 +30,7 @@ export function CallToActionWrapper(props: {
                             <b>So stark entlastet dich keine andere Partei!</b>
                         </p>
                         <p>Hinzu kommen weitere Vergünstigungen und Angebote, die in die Berechnung des ZEW nicht einfließen:</p>
+                        <ArmutsChartWrapper data={armutsdata} output={props.output} />
                         <ListeDieLinke />
                     </div>
                 )}
@@ -43,6 +47,7 @@ export function CallToActionWrapper(props: {
                                 Garantiert dir zwar vergleichbar weniger Entlastung aber viele alternative{" "}
                                 <a href="#DieLinke">Vorschläge</a>, um das Leben aller Menschen zu verbessern.
                             </p>
+                            <ArmutsChartWrapper data={armutsdata} output={props.output} />
                             <ListeDieLinke />
                         </span>
                     </Callout>
@@ -52,16 +57,22 @@ export function CallToActionWrapper(props: {
                     <Callout>
                         <b className="w-fit">Wir Empfehlen dennoch Die Linke: </b>
                         <p>
-                            Mit ihr würdest du bis zu {props.output.entlastung_linke}€ mehr auf dem Konto haben und auch noch einen
-                            solidarischen Beitrag für die gesamte Gesellschaft leisten. Dabei Springt natürlich auch viel für dich raus.
+                            Mit ihr würdest du bis zu <b>{props.output.entlastung_linke}€</b> mehr auf dem Konto haben und auch noch einen
+                            solidarischen Beitrag für die gesamte Gesellschaft leisten.{" "}
+                            <b>
+                                {" "}
+                                Es könnten bis zu 82% der Bevölkerung entlastet werden <a href="/Quellen#STATISTA">[Statista]</a>.
+                            </b>{" "}
+                            Dabei Springt natürlich auch viel für dich raus.
+                            <ArmutsChartWrapper data={armutsdata} output={props.output} />
                             <ListeDieLinke />
                         </p>
                     </Callout>
                 )}
                 <p className="text-lg">
                     Es wird keine Garantie für eine exakte Korrektheit der Zahlen übernommen. Die Daten stammen aus einer{" "}
-                    <a href="/Quellen#ZEW">Studie des ZEW</a> und wurden durch uns ausschließlich skaliert. <br/>(*alle Quelle{" "}
-                    <a href="/Quellen#WP1">WP1</a>)
+                    <a href="/Quellen#ZEW">Studie des ZEW</a> und wurden durch uns ausschließlich skaliert. <br />
+                    (*alle Quelle <a href="/Quellen#WP1">WP1</a>)
                 </p>
             </div>
         </>

@@ -1,6 +1,6 @@
 export default function Card(props: {title: string, description: string, image: string, tag? : string,  action?: string, link: string}) {
     return <>
-        <div className="card bg-base-100 w-96 shadow-xl m-4">
+        <div className="card bg-base-100 w-96 shadow-xl m-4 p-4">
             <figure>
             <img className="object-cover"
                 src={props.image}

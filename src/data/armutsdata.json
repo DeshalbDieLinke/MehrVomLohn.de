@@ -1,0 +1,37 @@
+[
+    {
+        "name": "linke",
+        "value": -15.9,
+        "color": "#FF0000"
+    },
+    {
+        "name": "gruene",
+        "value":-5.0,
+        "color": "#46962b"
+    },
+    {
+        "name": "spd",
+        "value": 0.5,
+        "color": "#a8323c"
+    },
+    {
+        "name": "cdu",
+        "value": 2.9,
+        "color": "#000000"
+    },
+    {
+        "name": "bsw",
+        "value": 4.2,
+        "color": "#FFA500"
+    },
+    {
+        "name": "fdp",
+        "value": 11.0,
+        "color": "#ffed00"
+    },
+    {
+        "name": "afd",
+        "value": 12.9,
+        "color": "#964B00"
+    }
+]
