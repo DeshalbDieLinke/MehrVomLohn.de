@@ -8,10 +8,10 @@ export interface RechartsData {
 }
 
 
-const SteuernChart = (props: { data: RechartsData[]; percentage_or_value: boolean }) => {
+const SteuernChart = (props: { data: RechartsData[]; isPercentage: boolean }) => {
     const ChartTooltip = ({ payload, active, label }: any) => {
         if (active && payload && payload.length) {
-            if (props.percentage_or_value) {
+            if (props.isPercentage) {
                 return (
                     <div className="bg-white p-4 shadow-md">
                         <p className="text-lg p-0 m-0">{`Partei: ${label.toUpperCase()}`}</p>
@@ -34,7 +34,7 @@ const SteuernChart = (props: { data: RechartsData[]; percentage_or_value: boolea
     return (
         <div className="relative">
             <span className="absolute text-base -rotate-90 -left-[170px] top-1/2 -translate-y-full">
-                Veränderung des verfügbaren Einkommen in {props.percentage_or_value ? "%" : "€"}
+                Veränderung des verfügbaren Einkommen in {props.isPercentage ? "%" : "€"}
             </span>
             <ResponsiveContainer width="100%" height={600} className="pl-2 md:pl-4 mb-10">
                 <BarChart data={props.data}>

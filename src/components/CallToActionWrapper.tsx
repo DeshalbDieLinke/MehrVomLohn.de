@@ -14,7 +14,7 @@ export enum Status {
 
 export function CallToActionWrapper(props: {
     output: { party: string; status: Status; entlastung_linke: number; best_entlastung: number };
-    percentage_or_value: boolean;
+    isPercentage: boolean;
 }) {
     return (
         <>
@@ -27,8 +27,8 @@ export function CallToActionWrapper(props: {
                         <p>
                             Für dich springt bei <b>Der Linken</b> am meisten bei raus! <br />
                             Mit der Linke kannst du bis zu
-                            {props.percentage_or_value && <b> {props.output.best_entlastung}% mehr im Jahr </b>}
-                            {!props.percentage_or_value && <b> {props.output.entlastung_linke}€ mehr im Jahr </b>}
+                            {props.isPercentage && <b> {props.output.best_entlastung}% mehr im Jahr </b>}
+                            {!props.isPercentage && <b> {props.output.entlastung_linke}€ mehr im Jahr </b>}
                             erhalten, weil das Steuerprogramm in diesem Bereich sehr starke Entlastungen vorsieht.{" "}
                             <b>So stark entlastet dich keine andere Partei!</b>
                         </p>
@@ -61,8 +61,8 @@ export function CallToActionWrapper(props: {
                         <b className="w-fit">Wir Empfehlen dennoch Die Linke: </b>
                         <p>
                             Mit ihr würdest du bis zu
-                            {props.percentage_or_value && <b> {props.output.entlastung_linke}% mehr im Jahr </b>}
-                            {!props.percentage_or_value && <b> {props.output.entlastung_linke}€ mehr im Jahr </b>}
+                            {props.isPercentage && <b> {props.output.entlastung_linke}% mehr im Jahr </b>}
+                            {!props.isPercentage && <b> {props.output.entlastung_linke}€ mehr im Jahr </b>}
                             mehr auf dem Konto haben und auch noch einen solidarischen Beitrag für die gesamte Gesellschaft leisten.{" "}
                             <b>
                                 {" "}

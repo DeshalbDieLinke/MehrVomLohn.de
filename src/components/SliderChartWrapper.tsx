@@ -2,10 +2,11 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import InputComponent from "../components/Input.tsx";
 import SteuernChart from "../components/SteuernChart.tsx";
 import type { RechartsData } from "../components/SteuernChart.tsx";
-import { useState, useRef, useEffect} from "react";
+import { useState, useRef, useEffect, use} from "react";
 import taxdata from "../data/taxdata.json";
 import { CallToActionWrapper, Status } from "./CallToActionWrapper.tsx";
 import { FirstInput, type IncomeGroupsForInput } from "./FirstInput.tsx";
+import type UserData from "@/lib/UserData.ts";
 
 export interface TaxGroup {
     type: string;
@@ -44,18 +45,25 @@ function GetRecomendations(data: RechartsData[]): { party: string; status: Statu
     return { party: max.p, status: status, best_entlastung: max.v, entlastung_linke: dielinke_entlastung };
 }
 
-export default function SliderChartWrapper() {
-    let [userdata, setUserdata] = useState({ income: -1, status: "single", percentage_or_value: false });
 
+export default function SliderChartWrapper() {
+    let [userdata, setUserdataFiltered] = useState<UserData>({ income: -1, status: "single", isPercentage: false });
+    const setUserdata = (value: { income: number; status: "single" | "twochildren" | "paar"; isPercentage: boolean }) => { 
+        userdata = value;
+        userdata.isPercentage = value.status == "single" ? value.isPercentage : false;
+        setUserdataFiltered(value);
+    }
     // Updates the query params.
     useEffect(() => {
         if (userdata.income == -1) {
+            window.history.pushState({}, "", "/");
             return;
         }
-        console.log("userdata:" + userdata);
-        let params = new URLSearchParams(window.location.search);
+        
+        let params = new URLSearchParams();
         params.set("income", userdata.income.toString());
         params.set("status", userdata.status.toString());
+        params.set("isPercentage", userdata.isPercentage.toString());
         window.history.pushState({}, "", "?"+ params.toString());
     }, [userdata]);
 
@@ -64,8 +72,16 @@ export default function SliderChartWrapper() {
         let params = new URLSearchParams(window.location.search);
         let income = params.get("income");
         let status = params.get("status");
+        let isPercentage: boolean = params.get("isPercentage") == "true";
         if (income != null && status != null) {
-            setUserdata({ income: parseInt(income), status: status, percentage_or_value: false });
+            try {
+                setUserdata({ income: parseInt(income), status: status as "single" | "paar" | "twochildren", isPercentage: isPercentage ?? false }); }
+            catch (e) {
+                console.log(e);
+                window.location.href = "/";
+            }
+        } else;{
+            setUserdata({ income: -1, status: "single", isPercentage: false });
         }
     }, []);
 
@@ -133,10 +149,10 @@ export default function SliderChartWrapper() {
                 <div className="md:p-4" id="result">
                     <InputComponent value={userdata} setValue={setUserdata} />
                     <div >
-                        <SteuernChart data={data} percentage_or_value={userdata.percentage_or_value} />
+                        <SteuernChart data={data} isPercentage={userdata.isPercentage} />
                     </div>
                     <div>
-                        <CallToActionWrapper output={recom} percentage_or_value={userdata.percentage_or_value} />
+                        <CallToActionWrapper output={recom} isPercentage={userdata.isPercentage} />
                     </div>
                 </div>
             )}
@@ -153,12 +169,12 @@ function isNumberString(value: string): boolean {
 }
 
 // TODO: fix types
-function PushTaxgroupToData(taxgroup: TaxGroup, userinput: any, colors: any): [RechartsData[], boolean] {
+function PushTaxgroupToData(taxgroup: TaxGroup, userinput: {income: number, status: string, isPercentage: boolean}, colors: any): [RechartsData[], boolean] {
     let data: RechartsData[] = [];
     for (const [key, value] of Object.entries(taxgroup)) {
         if (key !== "type") {
             let push_value = value[1];
-            if (userinput.percentage_or_value && userinput.children == "single") {
+            if (userinput.isPercentage && userinput.status == "single") {
                 push_value = value[0];
             }
             data.push({ name: key, value: push_value, color: colors[key] });
@@ -171,7 +187,7 @@ function PushTaxgroupToData(taxgroup: TaxGroup, userinput: any, colors: any): [R
 
 // TODO: fix types
 // TODO: add a proper algo. now everything only works if the data in taxdata.json is the the right order
-function CalcGraphData(taxgroups: TaxGroup[], colors: any, userinput: {income: number, status: string, percentage_or_value: boolean}): RechartsData[] {
+function CalcGraphData(taxgroups: TaxGroup[], colors: any, userinput: {income: number, status: string, isPercentage: boolean}): RechartsData[] {
     let data: RechartsData[] = [];
 
     let found = false;

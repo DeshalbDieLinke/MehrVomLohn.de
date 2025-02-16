@@ -4,6 +4,7 @@ import { Switch } from "@/components/ui/switch";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import type UserData from "@/lib/UserData.ts";
 
 function CleanIncomeData(income: number, children: string): number {
     let value = income;
@@ -48,8 +49,8 @@ function CleanIncomeData(income: number, children: string): number {
 }
 
 export default function InputComponent(props: {
-    value: { income: number; status: string; percentage_or_value: boolean };
-    setValue: (value: { income: number; status: string; percentage_or_value: boolean }) => void;
+    value: UserData;
+    setValue: (value: UserData) => void;
 }) {
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         const value = CleanIncomeData(parseInt(event.target.value), props.value.status);
@@ -113,7 +114,7 @@ export default function InputComponent(props: {
                                 props.setValue({
                                     ...props.value,
                                     income: value,
-                                    status: e,
+                                    status: e as "single" | "paar" | "twochildren",
                                 });
                             }}
                             value={props.value.status}
@@ -132,9 +133,9 @@ export default function InputComponent(props: {
                         <div className="flex items-center space-x-2">
                             <Checkbox
                                 id="airplane-mode"
-                                checked={props.value.percentage_or_value}
-                                onCheckedChange={() => {
-                                    props.setValue({ ...props.value, percentage_or_value: !props.value.percentage_or_value });
+                                checked={props.value.isPercentage}
+                                onCheckedChange={(e) => {
+                                    props.setValue({ income: props.value.income, status: props.value.status, isPercentage: !!e  });
                                 }}
                             />
                             <Label htmlFor="airplane-mode">Daten in Prozent</Label>
