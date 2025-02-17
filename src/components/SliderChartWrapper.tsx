@@ -96,7 +96,7 @@ export default function SliderChartWrapper() {
                     <TabsList className="flex justify-center">
                         <TabsTrigger value="single">Singe</TabsTrigger>
                         <TabsTrigger value="paar">Paar</TabsTrigger>
-                        <TabsTrigger value="twochildren">Paar mit zwei Kindern</TabsTrigger>
+                        <TabsTrigger value="twochildren">Ehepaar mit zwei Kindern</TabsTrigger>
                     </TabsList>
                     <TabsContent value="single" className={tabs.current?.value == "single" ? "bg-r-500" : ""}>
                         <FirstInput
